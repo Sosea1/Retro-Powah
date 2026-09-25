@@ -1,0 +1,44 @@
+{
+  "name": "Энергокабель",
+  "icon": "powah:energy_cable_starter",
+  "category": "storage_transfer",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Энергокабель передаёт FE между подключёнными механизмами. Кабельная сеть кэширует топологию и не создаёт отдельный тяжёлый тик для каждого сегмента."
+    },
+    {
+      "type": "text",
+      "text": "Гаечный ключ в режиме «Настройка» меняет ввод и вывод конкретного соединения."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Передача (FE/t)$()$(br)Начальный: 500$(br)Основной: 2k$(br)Усиленный: 5k$(br)Пламенный: 20k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Передача (FE/t)$()$(br)Ниотиевый: 50k$(br)Резонансный: 200k$(br)Нитро: 1M"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_cable_starter",
+      "recipe2": "powah:energy_cable_basic",
+      "title": "Рецепты тиров"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_cable_hardened",
+      "recipe2": "powah:energy_cable_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_cable_niotic",
+      "recipe2": "powah:energy_cable_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_cable_nitro"
+    }
+  ]
+}

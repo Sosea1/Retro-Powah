@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MCM",
+    "PDP",
+    "MCM"
+  ],
+  "key": {
+    "M": {
+      "item": "powah:steel_energized"
+    },
+    "C": {
+      "item": "powah:capacitor_hardened"
+    },
+    "P": {
+      "item": "powah:energy_cell_basic"
+    },
+    "D": {
+      "item": "powah:dielectric_casing"
+    }
+  },
+  "result": {
+    "item": "powah:energy_cell_hardened"
+  }
+}

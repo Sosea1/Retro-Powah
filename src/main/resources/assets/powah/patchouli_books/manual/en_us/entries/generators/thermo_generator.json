@@ -1,0 +1,48 @@
+{
+  "name": "Thermo Generator",
+  "icon": "powah:thermo_generator_starter",
+  "category": "generators",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Thermo Generator uses a heat source directly below it plus coolant in its internal tank."
+    },
+    {
+      "type": "text",
+      "text": "The hotter the source and the colder the coolant, the better the output. Water is the default coolant; lava and magma blocks are default heat sources."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Default heat examples$()$(br)Lava: 1000$(br)Magma block: 800$(br)Blazing Crystal Block: 2800$(br2)Water coolant temperature: 0."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Base generation (FE/t)$()$(br)Starter: 20$(br)Basic: 60$(br)Hardened: 100$(br)Blazing: 200"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Base generation (FE/t)$()$(br)Niotic: 400$(br)Spirited: 800$(br)Nitro: 2k"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:thermo_generator_starter",
+      "recipe2": "powah:thermo_generator_basic",
+      "title": "Tier recipes"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:thermo_generator_hardened",
+      "recipe2": "powah:thermo_generator_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:thermo_generator_niotic",
+      "recipe2": "powah:thermo_generator_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:thermo_generator_nitro"
+    }
+  ]
+}

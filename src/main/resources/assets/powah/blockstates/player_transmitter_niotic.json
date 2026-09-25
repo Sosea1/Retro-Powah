@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "top=false": {
+      "model": "powah:player_transmitter_niotic"
+    },
+    "top=true": {
+      "model": "powah:player_transmitter_niotic_top"
+    }
+  }
+}

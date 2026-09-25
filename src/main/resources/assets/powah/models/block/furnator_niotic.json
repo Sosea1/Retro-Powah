@@ -1,0 +1,6 @@
+{
+  "parent": "powah:block/furnator",
+  "textures": {
+    "ov": "powah:block/niotic_ov"
+  }
+}

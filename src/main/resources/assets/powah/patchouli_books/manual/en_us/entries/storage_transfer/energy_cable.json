@@ -1,0 +1,44 @@
+{
+  "name": "Energy Cable",
+  "icon": "powah:energy_cable_starter",
+  "category": "storage_transfer",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Energy Cables move FE between connected machines without a ticking TileEntity on every cable."
+    },
+    {
+      "type": "text",
+      "text": "Use the Powah Wrench in Config mode on a cable connection to change that side's input/output behavior."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Transfer (FE/t)$()$(br)Starter: 500$(br)Basic: 2k$(br)Hardened: 5k$(br)Blazing: 20k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Transfer (FE/t)$()$(br)Niotic: 50k$(br)Spirited: 200k$(br)Nitro: 1M"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_cable_starter",
+      "recipe2": "powah:energy_cable_basic",
+      "title": "Tier recipes"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_cable_hardened",
+      "recipe2": "powah:energy_cable_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_cable_niotic",
+      "recipe2": "powah:energy_cable_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_cable_nitro"
+    }
+  ]
+}

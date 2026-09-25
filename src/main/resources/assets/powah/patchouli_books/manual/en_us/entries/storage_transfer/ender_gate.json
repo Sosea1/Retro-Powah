@@ -1,0 +1,52 @@
+{
+  "name": "Ender Gate",
+  "icon": "powah:ender_gate_starter",
+  "category": "storage_transfer",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Ender Gates exchange FE between the selected Ender Network channel and an adjacent FE block."
+    },
+    {
+      "type": "text",
+      "text": "They are transfer endpoints only: an Ender Gate cannot increase channel capacity. Add capacity through an Ender Cell with a Battery or Energy Cell."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Transfer (FE/t)$()$(br)Starter: 500$(br)Basic: 2k$(br)Hardened: 5k$(br)Blazing: 20k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Transfer (FE/t)$()$(br)Niotic: 50k$(br)Spirited: 200k$(br)Nitro: 1M"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Maximum channels$()$(br)Starter: 1$(br)Basic: 2$(br)Hardened: 3$(br)Blazing: 5"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Maximum channels$()$(br)Niotic: 7$(br)Spirited: 9$(br)Nitro: 12"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:ender_gate_starter",
+      "recipe2": "powah:ender_gate_basic",
+      "title": "Tier recipes"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:ender_gate_hardened",
+      "recipe2": "powah:ender_gate_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:ender_gate_niotic",
+      "recipe2": "powah:ender_gate_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:ender_gate_nitro"
+    }
+  ]
+}

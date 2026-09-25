@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PBP",
+    "BEB",
+    "PBP"
+  ],
+  "key": {
+    "P": {
+      "item": "powah:dielectric_paste"
+    },
+    "B": {
+      "item": "minecraft:iron_bars"
+    },
+    "E": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "result": {
+    "item": "powah:aerial_pearl"
+  }
+}

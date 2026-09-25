@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "OIO",
+    "ICI",
+    "OIO"
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "I": {
+      "item": "powah:crystal_blazing"
+    },
+    "C": {
+      "item": "powah:ender_core"
+    }
+  },
+  "result": {
+    "item": "powah:ender_cell_blazing",
+    "count": 1
+  }
+}

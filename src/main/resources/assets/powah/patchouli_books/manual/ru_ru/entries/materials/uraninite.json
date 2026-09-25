@@ -1,0 +1,28 @@
+{
+  "name": "Уранинит",
+  "icon": "powah:uraninite",
+  "category": "materials",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Уранинит — основное топливо реактора Powah. Руда бывает бедной, обычной и богатой.$(br2)Для добычи нужна как минимум железная кирка. Удача может увеличить выход."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Генерация мира$()$(br)Бедная руда: Y 0–64, 8 попыток, жила до 5 блоков.$(br)Обычная: Y 0–20, 6 попыток, жила до 4.$(br)Богатая: Y 1–8, 3 попытки, жила до 3."
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:uraninite_block",
+      "recipe2": "powah:uraninite_from_block",
+      "title": "Хранение уранинита"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:uraninite_raw_block",
+      "recipe2": "powah:uraninite_raw_from_block",
+      "title": "Хранение неочищенного уранинита"
+    }
+  ]
+}

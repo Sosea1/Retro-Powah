@@ -1,0 +1,48 @@
+{
+  "name": "Player Transmitter",
+  "icon": "powah:player_transmitter_starter",
+  "category": "energy_blocks",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Player Transmitter wirelessly charges FE-capable items carried by a bound player, including main inventory, armor, and offhand."
+    },
+    {
+      "type": "text",
+      "text": "Put a bound card in its card slot and supply the transmitter with FE."
+    },
+    {
+      "type": "text",
+      "text": "A normal Binding Card works only while the player is in the same dimension as the transmitter.$(br2)A Dimensional Binding Card can charge the bound player across dimensions."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Charge rate per item (FE/t)$()$(br)Starter: 500$(br)Basic: 2k$(br)Hardened: 5k$(br)Blazing: 20k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Charge rate per item (FE/t)$()$(br)Niotic: 50k$(br)Spirited: 200k$(br)Nitro: 1M"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:player_transmitter_starter",
+      "recipe2": "powah:player_transmitter_basic",
+      "title": "Tier recipes"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:player_transmitter_hardened",
+      "recipe2": "powah:player_transmitter_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:player_transmitter_niotic",
+      "recipe2": "powah:player_transmitter_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:player_transmitter_nitro"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Энергоблоки",
+  "description": "Механизмы для обработки, зарядки и передачи энергии",
+  "icon": "powah:energizing_orb",
+  "sortnum": 1
+}

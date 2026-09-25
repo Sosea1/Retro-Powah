@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RR"
+  ],
+  "key": {
+    "R": {
+      "item": "powah:dielectric_rod_horizontal"
+    }
+  },
+  "result": {
+    "item": "powah:blank_card"
+  }
+}

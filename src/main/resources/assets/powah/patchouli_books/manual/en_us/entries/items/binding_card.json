@@ -1,0 +1,21 @@
+{
+  "name": "Binding Card",
+  "icon": "powah:binding_card",
+  "category": "items",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Right-click while holding an unbound Binding Card to bind it to yourself."
+    },
+    {
+      "type": "text",
+      "text": "Place the bound card in a Player Transmitter to charge that player while they are online in the same dimension."
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:binding_card",
+      "title": "Crafting"
+    }
+  ]
+}

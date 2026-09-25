@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "powah:energy_discharger_nitro",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "powah:energy_discharger_nitro"
+    },
+    "facing=south": {
+      "model": "powah:energy_discharger_nitro",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "powah:energy_discharger_nitro",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MCM",
+    "PDP",
+    "MCM"
+  ],
+  "key": {
+    "M": {
+      "item": "powah:crystal_niotic"
+    },
+    "C": {
+      "item": "powah:capacitor_niotic"
+    },
+    "P": {
+      "item": "powah:energy_cell_blazing"
+    },
+    "D": {
+      "item": "powah:dielectric_casing"
+    }
+  },
+  "result": {
+    "item": "powah:energy_cell_niotic"
+  }
+}

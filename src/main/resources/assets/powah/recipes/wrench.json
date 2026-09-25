@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " IP",
+    " PI",
+    "P  "
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "P": {
+      "item": "powah:dielectric_paste"
+    }
+  },
+  "result": {
+    "item": "powah:wrench"
+  }
+}

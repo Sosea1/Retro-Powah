@@ -1,0 +1,18 @@
+{
+  "name": "Энергоснежок",
+  "icon": "powah:charged_snowball",
+  "category": "items",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Энергоснежок вызывает молнию при попадании.$(br2)Он не создаётся на верстаке: электризуй обычный снежок в зарядной сфере за 1 000 FE."
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:charged_snowball",
+      "text": "Рецепт энергизации",
+      "title": "Снежок → заряженный снежок$(br)1 000 FE."
+    }
+  ]
+}

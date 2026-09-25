@@ -1,0 +1,60 @@
+{
+  "name": "Аккумулятор",
+  "icon": "powah:battery_starter",
+  "category": "items",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Аккумулятор — переносной накопитель Forge Energy с обычной FE capability."
+    },
+    {
+      "type": "text",
+      "text": "Shift+ПКМ переключает автозарядку. Во включённом состоянии аккумулятор заряжает совместимые предметы в инвентаре, броне и второй руке."
+    },
+    {
+      "type": "text",
+      "text": "Поддерживаются дополнительные слоты экипировки от совместимых модов. Другие аккумуляторы Powah автоматически пропускаются."
+    },
+    {
+      "type": "text",
+      "text": "Shift-кликни аккумулятор в интерфейсе эндер-ячейки, чтобы расходовать его как постоянное расширение ёмкости выбранного канала. Накопленная в аккумуляторе FE также переносится в канал."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Ёмкость (FE)$()$(br)Начальный: 1M$(br)Основной: 4M$(br)Усиленный: 10M$(br)Пламенный: 40M"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Ёмкость (FE)$()$(br)Ниотиевый: 100M$(br)Резонансный: 400M$(br)Нитро: 2B"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Макс. I/O (FE/t)$()$(br)Начальный: 1k$(br)Основной: 4k$(br)Усиленный: 10k$(br)Пламенный: 40k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Макс. I/O (FE/t)$()$(br)Ниотиевый: 100k$(br)Резонансный: 400k$(br)Нитро: 2M"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:battery_starter",
+      "recipe2": "powah:battery_basic",
+      "title": "Рецепты тиров"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:battery_hardened",
+      "recipe2": "powah:battery_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:battery_niotic",
+      "recipe2": "powah:battery_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:battery_nitro"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " Q ",
+    "TCT",
+    " P "
+  ],
+  "key": {
+    "Q": {
+      "item": "minecraft:quartz_block",
+      "data": 0
+    },
+    "T": {
+      "item": "powah:capacitor_blazing"
+    },
+    "C": {
+      "item": "powah:dielectric_casing"
+    },
+    "P": {
+      "item": "powah:energizing_rod_hardened"
+    }
+  },
+  "result": {
+    "item": "powah:energizing_rod_blazing"
+  }
+}

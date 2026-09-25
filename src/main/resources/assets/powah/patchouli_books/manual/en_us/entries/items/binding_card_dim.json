@@ -1,0 +1,22 @@
+{
+  "name": "Dimensional Binding Card",
+  "icon": "powah:binding_card_dim",
+  "category": "items",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "text": "A Dimensional Binding Card removes the same-dimension restriction from the Player Transmitter."
+    },
+    {
+      "type": "text",
+      "text": "In this 1.12.2 progression there is intentionally no normal crafting recipe: use a Binding Card on an Enderman or Endermite to convert it."
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:binding_card",
+      "text": "Starting item",
+      "title": "Use a normal Binding Card on an Enderman or Endermite."
+    }
+  ]
+}

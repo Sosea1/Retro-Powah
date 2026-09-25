@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IHI",
+    "V V",
+    "IHI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "H": {
+      "item": "powah:dielectric_rod_horizontal"
+    },
+    "V": {
+      "item": "powah:dielectric_rod"
+    }
+  },
+  "result": {
+    "item": "powah:dielectric_casing"
+  }
+}

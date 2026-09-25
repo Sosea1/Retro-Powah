@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "OIO",
+    "ICI",
+    "OIO"
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "I": {
+      "item": "powah:energy_cable_nitro"
+    },
+    "C": {
+      "item": "powah:ender_core"
+    }
+  },
+  "result": {
+    "item": "powah:ender_gate_nitro",
+    "count": 4
+  }
+}

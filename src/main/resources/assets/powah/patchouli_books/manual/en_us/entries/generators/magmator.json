@@ -1,0 +1,48 @@
+{
+  "name": "Magmator",
+  "icon": "powah:magmator_starter",
+  "category": "generators",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Magmator converts registered hot fluids into FE. Lava is the default fuel and is valued per 100 mB."
+    },
+    {
+      "type": "text",
+      "text": "Higher tiers burn through the buffered fluid-energy faster; the same amount of a given fluid still yields the same total FE."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Lava default$()$(br)10,000 FE per 100 mB.$(br2)Other fluids can be registered through the Powah API."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Generation (FE/t)$()$(br)Starter: 20$(br)Basic: 80$(br)Hardened: 200$(br)Blazing: 800"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Generation (FE/t)$()$(br)Niotic: 2k$(br)Spirited: 8k$(br)Nitro: 40k"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:magmator_starter",
+      "recipe2": "powah:magmator_basic",
+      "title": "Tier recipes"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:magmator_hardened",
+      "recipe2": "powah:magmator_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:magmator_niotic",
+      "recipe2": "powah:magmator_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:magmator_nitro"
+    }
+  ]
+}

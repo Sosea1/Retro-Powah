@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PMP",
+    "MCM",
+    "PMP"
+  ],
+  "key": {
+    "P": {
+      "item": "powah:dielectric_paste"
+    },
+    "M": {
+      "item": "powah:crystal_nitro"
+    },
+    "C": {
+      "item": "powah:capacitor_basic_large"
+    }
+  },
+  "result": {
+    "item": "powah:capacitor_nitro"
+  }
+}

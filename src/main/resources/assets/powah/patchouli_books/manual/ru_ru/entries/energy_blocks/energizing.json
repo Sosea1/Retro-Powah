@@ -1,0 +1,101 @@
+{
+  "name": "Зарядная сфера",
+  "icon": "powah:energizing_orb",
+  "category": "energy_blocks",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Зарядная сфера выполняет особые энергетические рецепты Powah."
+    },
+    {
+      "type": "text",
+      "text": "Поставь хотя бы один зарядоотвод в области 9×9 и свяжи его со сферой гаечным ключом в режиме «Связь». Сама сфера не подключается к кабелю."
+    },
+    {
+      "type": "text",
+      "text": "Зарядоотвод получает FE от кабеля или соседнего FE-блока и передаёт её связанной сфере. Несколько зарядоотводов суммируют скорость передачи."
+    },
+    {
+      "type": "text",
+      "text": "Все рецепты электризации также доступны в отдельной категории Powah в JEI."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Передача зарядоотвода (FE/t)$()$(br)Начальный: 100$(br)Основной: 400$(br)Усиленный: 1k$(br)Пламенный: 4k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Передача зарядоотвода (FE/t)$()$(br)Ниотиевый: 10k$(br)Резонансный: 40k$(br)Нитро: 200k"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energizing_orb",
+      "recipe2": "powah:energizing_rod_starter",
+      "title": "сфера + Начальный зарядоотвод"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energizing_rod_basic",
+      "recipe2": "powah:energizing_rod_hardened"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energizing_rod_blazing",
+      "recipe2": "powah:energizing_rod_niotic"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energizing_rod_spirited",
+      "recipe2": "powah:energizing_rod_nitro"
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:steel_energized",
+      "text": "Железный слиток + золотой слиток → 2 электросталь$(br)Цена: 10 000 FE.",
+      "title": "электросталь"
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:crystal_blazing",
+      "text": "Огненный стержень → пламенный кристалл: 90 000 FE.$(br)Или 4 огненных порошка → пламенный кристалл: 120 000 FE.",
+      "title": "пламенный кристалл"
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:crystal_niotic",
+      "text": "Алмаз → ниотиевый кристалл$(br)Цена: 300 000 FE.",
+      "title": "ниотиевый кристалл"
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:crystal_spirited",
+      "text": "Изумруд → резонансный кристалл$(br)Цена: 1 000 000 FE.",
+      "title": "резонансный кристалл"
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:ender_core",
+      "text": "Око Эндера + диэлектрический корпус + небольшой основной конденсатор → Эндер-ядро$(br)Цена: 50 000 FE.",
+      "title": "Эндер-ядро"
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:charged_snowball",
+      "text": "Снежок → заряженный снежок$(br)Цена: 1 000 FE.",
+      "title": "Заряженный снежок"
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:dry_ice",
+      "text": "2 плотных льда → сухой лёд$(br)Цена: 10 000 FE.$(br2)В 1.12.2 используется плотный лёд, поскольку синий лёд здесь отсутствует.",
+      "title": "Сухой лёд"
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:crystal_nitro",
+      "text": "Звезда Незера + 2 блока редстоуна + блок пламенный кристалл → 16 нитрокристалл$(br)Цена: 20 000 000 FE.",
+      "title": "нитрокристалл"
+    }
+  ]
+}

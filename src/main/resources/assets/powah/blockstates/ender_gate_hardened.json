@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "powah:ender_gate_hardened",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "powah:ender_gate_hardened",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "powah:ender_gate_hardened"
+    },
+    "facing=south": {
+      "model": "powah:ender_gate_hardened",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "powah:ender_gate_hardened",
+      "x": 270
+    },
+    "facing=west": {
+      "model": "powah:ender_gate_hardened",
+      "y": 270
+    }
+  }
+}

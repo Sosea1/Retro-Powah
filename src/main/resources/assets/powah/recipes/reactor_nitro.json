@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RLR",
+    "LUL",
+    "RLR"
+  ],
+  "key": {
+    "R": {
+      "item": "powah:reactor_spirited"
+    },
+    "L": {
+      "item": "powah:capacitor_nitro"
+    },
+    "U": {
+      "item": "powah:uraninite"
+    }
+  },
+  "result": {
+    "item": "powah:reactor_nitro",
+    "count": 4
+  }
+}

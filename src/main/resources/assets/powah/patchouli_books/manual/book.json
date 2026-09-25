@@ -1,0 +1,8 @@
+{
+  "name": "Powah! Manual",
+  "landing_text": "Welcome to Powah! - a modular and expandable energy generation, transmission, and storage mod for Minecraft 1.12.2.",
+  "version": 1,
+  "book_texture": "patchouli:textures/gui/book_cyan.png",
+  "model": "powah:book",
+  "use_resource_pack": true
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "powah:block/ender_gate",
+  "textures": {
+    "ov": "powah:block/hardened_ov"
+  }
+}

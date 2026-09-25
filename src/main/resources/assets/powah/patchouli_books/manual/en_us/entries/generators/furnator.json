@@ -1,0 +1,52 @@
+{
+  "name": "Furnator",
+  "icon": "powah:furnator_starter",
+  "category": "generators",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Furnator burns normal furnace fuels and turns their burn time into FE."
+    },
+    {
+      "type": "text",
+      "text": "Higher tiers produce FE faster. They also consume the stored fuel-energy faster, so upgrading changes speed, not the total FE obtained from the same fuel."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Generation (FE/t)$()$(br)Starter: 20$(br)Basic: 80$(br)Hardened: 200$(br)Blazing: 800"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Generation (FE/t)$()$(br)Niotic: 2k$(br)Spirited: 8k$(br)Nitro: 40k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Max output (FE/t)$()$(br)Starter: 80$(br)Basic: 320$(br)Hardened: 800$(br)Blazing: 3.2k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Max output (FE/t)$()$(br)Niotic: 8k$(br)Spirited: 32k$(br)Nitro: 160k"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:furnator_starter",
+      "recipe2": "powah:furnator_basic",
+      "title": "Tier recipes"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:furnator_hardened",
+      "recipe2": "powah:furnator_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:furnator_niotic",
+      "recipe2": "powah:furnator_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:furnator_nitro"
+    }
+  ]
+}

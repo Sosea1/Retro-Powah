@@ -1,0 +1,52 @@
+{
+  "name": "Energy Hopper",
+  "icon": "powah:energy_hopper_starter",
+  "category": "energy_blocks",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Energy Hopper charges every FE-capable item in the inventory directly in front of it."
+    },
+    {
+      "type": "text",
+      "text": "Feed FE into the Hopper and point its working face at a chest, machine inventory, or other supported item handler."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Capacity (FE)$()$(br)Starter: 1M$(br)Basic: 4M$(br)Hardened: 10M$(br)Blazing: 40M"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Capacity (FE)$()$(br)Niotic: 100M$(br)Spirited: 400M$(br)Nitro: 2B"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Charge rate per item (FE/t)$()$(br)Starter: 500$(br)Basic: 2k$(br)Hardened: 5k$(br)Blazing: 20k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Charge rate per item (FE/t)$()$(br)Niotic: 50k$(br)Spirited: 200k$(br)Nitro: 1M"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_hopper_starter",
+      "recipe2": "powah:energy_hopper_basic",
+      "title": "Tier recipes"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_hopper_hardened",
+      "recipe2": "powah:energy_hopper_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_hopper_niotic",
+      "recipe2": "powah:energy_hopper_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_hopper_nitro"
+    }
+  ]
+}

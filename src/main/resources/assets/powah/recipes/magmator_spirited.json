@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MMM",
+    "CDC",
+    "MFM"
+  ],
+  "key": {
+    "M": {
+      "item": "powah:crystal_spirited"
+    },
+    "C": {
+      "item": "powah:capacitor_spirited"
+    },
+    "D": {
+      "item": "powah:dielectric_casing"
+    },
+    "F": {
+      "item": "powah:magmator_niotic"
+    }
+  },
+  "result": {
+    "item": "powah:magmator_spirited"
+  }
+}

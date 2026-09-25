@@ -1,0 +1,48 @@
+{
+  "name": "Термогенератор",
+  "icon": "powah:thermo_generator_starter",
+  "category": "generators",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Термогенератор использует источник тепла прямо под собой и охлаждающую жидкость во внутреннем баке."
+    },
+    {
+      "type": "text",
+      "text": "Чем горячее источник и холоднее охладитель, тем выше выход. Вода — стандартный охладитель; лава и магмовый блок — стандартные источники тепла."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Примеры источников$()$(br)Лава: 1000$(br)Магмовый блок: 800$(br)Блок пламенных кристаллов: 2800$(br2)Температура воды: 0."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Базовая генерация (FE/t)$()$(br)Начальный: 20$(br)Основной: 60$(br)Усиленный: 100$(br)Пламенный: 200"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Базовая генерация (FE/t)$()$(br)Ниотиевый: 400$(br)Резонансный: 800$(br)Нитро: 2k"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:thermo_generator_starter",
+      "recipe2": "powah:thermo_generator_basic",
+      "title": "Рецепты тиров"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:thermo_generator_hardened",
+      "recipe2": "powah:thermo_generator_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:thermo_generator_niotic",
+      "recipe2": "powah:thermo_generator_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:thermo_generator_nitro"
+    }
+  ]
+}

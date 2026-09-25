@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BR",
+    "RF"
+  ],
+  "key": {
+    "B": {
+      "item": "powah:blank_card"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "F": {
+      "item": "minecraft:rotten_flesh"
+    }
+  },
+  "result": {
+    "item": "powah:binding_card"
+  }
+}

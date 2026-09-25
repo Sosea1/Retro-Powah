@@ -1,0 +1,56 @@
+{
+  "name": "Energy Cell",
+  "icon": "powah:energy_cell_starter",
+  "category": "storage_transfer",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Energy Cells store Forge Energy and can receive or output it through configured sides."
+    },
+    {
+      "type": "text",
+      "text": "Their stored FE is preserved when the block is broken and placed again. The Creative Energy Cell behaves as an infinite source."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Ender Network use$()$(br)Shift-click an Energy Cell into an Ender Cell GUI to consume it as channel capacity. Any FE already stored in that Cell is imported into the channel too."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Capacity (FE)$()$(br)Starter: 1M$(br)Basic: 4M$(br)Hardened: 10M$(br)Blazing: 40M"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Capacity (FE)$()$(br)Niotic: 100M$(br)Spirited: 400M$(br)Nitro: 2B"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Max I/O (FE/t)$()$(br)Starter: 1k$(br)Basic: 4k$(br)Hardened: 10k$(br)Blazing: 40k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Max I/O (FE/t)$()$(br)Niotic: 100k$(br)Spirited: 400k$(br)Nitro: 2M"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_cell_starter",
+      "recipe2": "powah:energy_cell_basic",
+      "title": "Tier recipes"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_cell_hardened",
+      "recipe2": "powah:energy_cell_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_cell_niotic",
+      "recipe2": "powah:energy_cell_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_cell_nitro"
+    }
+  ]
+}

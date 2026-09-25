@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ULU",
+    "LCL",
+    "ULU"
+  ],
+  "key": {
+    "U": {
+      "item": "powah:uraninite"
+    },
+    "L": {
+      "item": "powah:capacitor_basic_tiny"
+    },
+    "C": {
+      "item": "powah:dielectric_casing"
+    }
+  },
+  "result": {
+    "item": "powah:reactor_starter",
+    "count": 4
+  }
+}

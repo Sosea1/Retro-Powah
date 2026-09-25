@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PMP",
+    "IRI",
+    "PCP"
+  ],
+  "key": {
+    "P": {
+      "item": "powah:dielectric_paste"
+    },
+    "M": {
+      "item": "powah:crystal_blazing"
+    },
+    "I": {
+      "item": "powah:capacitor_blazing"
+    },
+    "R": {
+      "item": "minecraft:redstone_block"
+    },
+    "C": {
+      "item": "powah:battery_hardened"
+    }
+  },
+  "result": {
+    "item": "powah:battery_blazing"
+  }
+}

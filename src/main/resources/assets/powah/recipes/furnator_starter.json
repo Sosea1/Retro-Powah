@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "CDC",
+    "PFP"
+  ],
+  "key": {
+    "P": {
+      "item": "powah:dielectric_paste"
+    },
+    "C": {
+      "item": "powah:capacitor_basic_tiny"
+    },
+    "D": {
+      "item": "powah:dielectric_casing"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    }
+  },
+  "result": {
+    "item": "powah:furnator_starter"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "name": "Battery",
+  "icon": "powah:battery_starter",
+  "category": "items",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "A Battery is portable Forge Energy storage with normal FE capability."
+    },
+    {
+      "type": "text",
+      "text": "Sneak-right-click it to toggle auto-charge. While enabled, it charges compatible items in your inventory, armor, and offhand."
+    },
+    {
+      "type": "text",
+      "text": "Compatible addon equipment slots are also supported. Other Powah Batteries are skipped automatically."
+    },
+    {
+      "type": "text",
+      "text": "Shift-click a Battery into an Ender Cell GUI to consume it as permanent capacity for the selected Ender Network channel. Stored FE is transferred into the channel at the same time."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Capacity (FE)$()$(br)Starter: 1M$(br)Basic: 4M$(br)Hardened: 10M$(br)Blazing: 40M"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Capacity (FE)$()$(br)Niotic: 100M$(br)Spirited: 400M$(br)Nitro: 2B"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Max I/O (FE/t)$()$(br)Starter: 1k$(br)Basic: 4k$(br)Hardened: 10k$(br)Blazing: 40k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Max I/O (FE/t)$()$(br)Niotic: 100k$(br)Spirited: 400k$(br)Nitro: 2M"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:battery_starter",
+      "recipe2": "powah:battery_basic",
+      "title": "Tier recipes"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:battery_hardened",
+      "recipe2": "powah:battery_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:battery_niotic",
+      "recipe2": "powah:battery_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:battery_nitro"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Energy Blocks",
+  "description": "Machines that process, charge, or move energy",
+  "icon": "powah:energizing_orb",
+  "sortnum": 1
+}

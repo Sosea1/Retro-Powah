@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PMP",
+    "MCM",
+    "PMP"
+  ],
+  "key": {
+    "P": {
+      "item": "powah:dielectric_paste"
+    },
+    "M": {
+      "item": "powah:steel_energized"
+    },
+    "C": {
+      "item": "powah:capacitor_basic_large"
+    }
+  },
+  "result": {
+    "item": "powah:capacitor_hardened",
+    "count": 2
+  }
+}

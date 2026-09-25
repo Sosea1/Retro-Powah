@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "CDC",
+    "MMM"
+  ],
+  "key": {
+    "P": {
+      "item": "powah:solar_panel_niotic"
+    },
+    "C": {
+      "item": "powah:capacitor_spirited"
+    },
+    "D": {
+      "item": "powah:dielectric_casing"
+    },
+    "M": {
+      "item": "powah:crystal_spirited"
+    }
+  },
+  "result": {
+    "item": "powah:solar_panel_spirited"
+  }
+}

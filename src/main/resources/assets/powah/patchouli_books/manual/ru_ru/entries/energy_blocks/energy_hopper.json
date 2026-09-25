@@ -1,0 +1,52 @@
+{
+  "name": "Энерговоронка",
+  "icon": "powah:energy_hopper_starter",
+  "category": "energy_blocks",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Энерговоронка заряжает все совместимые FE-предметы в инвентаре перед своей рабочей стороной."
+    },
+    {
+      "type": "text",
+      "text": "Подай на неё FE и направь на сундук, инвентарь механизма или другой совместимый обработчик предметов."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Ёмкость (FE)$()$(br)Начальный: 1M$(br)Основной: 4M$(br)Усиленный: 10M$(br)Пламенный: 40M"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Ёмкость (FE)$()$(br)Ниотиевый: 100M$(br)Резонансный: 400M$(br)Нитро: 2B"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Заряд предмета (FE/t)$()$(br)Начальный: 500$(br)Основной: 2k$(br)Усиленный: 5k$(br)Пламенный: 20k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Заряд предмета (FE/t)$()$(br)Ниотиевый: 50k$(br)Резонансный: 200k$(br)Нитро: 1M"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_hopper_starter",
+      "recipe2": "powah:energy_hopper_basic",
+      "title": "Рецепты тиров"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_hopper_hardened",
+      "recipe2": "powah:energy_hopper_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_hopper_niotic",
+      "recipe2": "powah:energy_hopper_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_hopper_nitro"
+    }
+  ]
+}

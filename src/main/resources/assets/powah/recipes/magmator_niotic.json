@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MMM",
+    "CDC",
+    "MFM"
+  ],
+  "key": {
+    "M": {
+      "item": "powah:crystal_niotic"
+    },
+    "C": {
+      "item": "powah:capacitor_niotic"
+    },
+    "D": {
+      "item": "powah:dielectric_casing"
+    },
+    "F": {
+      "item": "powah:magmator_blazing"
+    }
+  },
+  "result": {
+    "item": "powah:magmator_niotic"
+  }
+}

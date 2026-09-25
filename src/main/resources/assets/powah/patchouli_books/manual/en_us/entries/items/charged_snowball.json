@@ -1,0 +1,18 @@
+{
+  "name": "Charged Snowball",
+  "icon": "powah:charged_snowball",
+  "category": "items",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "A Charged Snowball calls down lightning when thrown.$(br2)It is not a crafting-table recipe: energize one Snowball in the Energizing Orb for 1,000 FE."
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:charged_snowball",
+      "text": "Energizing recipe",
+      "title": "Snowball → Charged Snowball$(br)1,000 FE."
+    }
+  ]
+}

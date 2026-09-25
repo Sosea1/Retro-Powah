@@ -1,0 +1,6 @@
+{
+  "name": "Хранение и передача",
+  "description": "Хранение FE и передача по кабелям или беспроводной сети",
+  "icon": "powah:energy_cell_starter",
+  "sortnum": 2
+}

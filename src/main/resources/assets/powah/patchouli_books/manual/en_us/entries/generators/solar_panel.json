@@ -1,0 +1,44 @@
+{
+  "name": "Solar Panel",
+  "icon": "powah:solar_panel_starter",
+  "category": "generators",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Solar Panels generate FE while there is enough daylight and the dimension has skylight."
+    },
+    {
+      "type": "text",
+      "text": "Normally the panel needs a clear view of the sky. Installing a Lens of Ender lets it ignore blocks above it."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Generation (FE/t)$()$(br)Starter: 20$(br)Basic: 60$(br)Hardened: 100$(br)Blazing: 200"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Generation (FE/t)$()$(br)Niotic: 400$(br)Spirited: 800$(br)Nitro: 2k"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:solar_panel_starter",
+      "recipe2": "powah:solar_panel_basic",
+      "title": "Tier recipes"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:solar_panel_hardened",
+      "recipe2": "powah:solar_panel_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:solar_panel_niotic",
+      "recipe2": "powah:solar_panel_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:solar_panel_nitro"
+    }
+  ]
+}

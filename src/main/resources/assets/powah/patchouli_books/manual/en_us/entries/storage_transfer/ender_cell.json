@@ -1,0 +1,68 @@
+{
+  "name": "Ender Cell",
+  "icon": "powah:ender_cell_starter",
+  "category": "storage_transfer",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Ender Cells are endpoints for a wireless FE pool identified by owner + channel."
+    },
+    {
+      "type": "text",
+      "text": "Two Ender Cells on the same owner/channel see the same stored energy even when they are far apart."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Important: a new channel has no useful storage until you add capacity.$()"
+    },
+    {
+      "type": "text",
+      "text": "Select the channel, then Shift-click a Battery or Energy Cell into the Ender Cell GUI. The item is consumed and its capacity is permanently added to that channel."
+    },
+    {
+      "type": "text",
+      "text": "If the consumed Battery or Energy Cell already contains FE, that energy is imported too."
+    },
+    {
+      "type": "text",
+      "text": "This is why there is no normal persistent “capacity slot”: the extender is an upgrade consumed into the network."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Endpoint transfer (FE/t)$()$(br)Starter: 1k$(br)Basic: 4k$(br)Hardened: 10k$(br)Blazing: 40k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Endpoint transfer (FE/t)$()$(br)Niotic: 100k$(br)Spirited: 400k$(br)Nitro: 2M"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Maximum channels$()$(br)Starter: 1$(br)Basic: 2$(br)Hardened: 3$(br)Blazing: 5"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Maximum channels$()$(br)Niotic: 7$(br)Spirited: 9$(br)Nitro: 12"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:ender_cell_starter",
+      "recipe2": "powah:ender_cell_basic",
+      "title": "Tier recipes"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:ender_cell_hardened",
+      "recipe2": "powah:ender_cell_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:ender_cell_niotic",
+      "recipe2": "powah:ender_cell_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:ender_cell_nitro"
+    }
+  ]
+}

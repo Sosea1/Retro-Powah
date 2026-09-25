@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "CDC",
+    "PPP"
+  ],
+  "key": {
+    "I": {
+      "item": "powah:dielectric_paste"
+    },
+    "C": {
+      "item": "powah:capacitor_basic_tiny"
+    },
+    "D": {
+      "item": "powah:dielectric_casing"
+    },
+    "P": {
+      "item": "powah:thermoelectric_plate"
+    }
+  },
+  "result": {
+    "item": "powah:thermo_generator_starter"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    "PCP",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "item": "powah:dielectric_rod_horizontal"
+    },
+    "P": {
+      "item": "powah:energy_cable_basic"
+    },
+    "C": {
+      "item": "powah:capacitor_hardened"
+    }
+  },
+  "result": {
+    "item": "powah:energy_cable_hardened",
+    "count": 6
+  }
+}

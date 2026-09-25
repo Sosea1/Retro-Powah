@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CCC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "powah:crystal_blazing"
+    }
+  },
+  "result": {
+    "item": "powah:blazing_crystal_block"
+  }
+}

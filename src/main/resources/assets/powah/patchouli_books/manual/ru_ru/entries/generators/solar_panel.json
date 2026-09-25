@@ -1,0 +1,44 @@
+{
+  "name": "Солнечная панель",
+  "icon": "powah:solar_panel_starter",
+  "category": "generators",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Солнечная панель вырабатывает FE при достаточном дневном освещении в измерении с небом."
+    },
+    {
+      "type": "text",
+      "text": "Обычно ей нужен прямой обзор неба. Установленная эндер-линза позволяет игнорировать блоки сверху."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Генерация (FE/t)$()$(br)Начальный: 20$(br)Основной: 60$(br)Усиленный: 100$(br)Пламенный: 200"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Генерация (FE/t)$()$(br)Ниотиевый: 400$(br)Резонансный: 800$(br)Нитро: 2k"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:solar_panel_starter",
+      "recipe2": "powah:solar_panel_basic",
+      "title": "Рецепты тиров"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:solar_panel_hardened",
+      "recipe2": "powah:solar_panel_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:solar_panel_niotic",
+      "recipe2": "powah:solar_panel_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:solar_panel_nitro"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "name": "Reactor",
+  "icon": "powah:reactor_starter",
+  "category": "generators",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Reactor is Powah's multiblock generator. One complete reactor uses 36 Reactor blocks."
+    },
+    {
+      "type": "text",
+      "text": "Use the Reactor block item with enough same-tier blocks available and a clear 3×4×3 build volume; the structure is assembled as one machine."
+    },
+    {
+      "type": "text",
+      "text": "Uraninite is the main reactor fuel. Furnace fuels provide carbon, redstone contributes heat, and liquid or solid coolants control temperature."
+    },
+    {
+      "type": "text",
+      "text": "Dry Ice is a particularly useful solid coolant."
+    },
+    {
+      "type": "text",
+      "text": "In automatic generation mode the reactor stops producing when its internal buffer is full and starts again after it falls to 70% or lower."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Generation (FE/t)$()$(br)Starter: 250$(br)Basic: 1k$(br)Hardened: 2.5k$(br)Blazing: 10k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Generation (FE/t)$()$(br)Niotic: 25k$(br)Spirited: 100k$(br)Nitro: 500k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Max extract (FE/t)$()$(br)Starter: 1k$(br)Basic: 4k$(br)Hardened: 10k$(br)Blazing: 40k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Max extract (FE/t)$()$(br)Niotic: 100k$(br)Spirited: 400k$(br)Nitro: 2M"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:reactor_starter",
+      "recipe2": "powah:reactor_basic",
+      "title": "Tier recipes"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:reactor_hardened",
+      "recipe2": "powah:reactor_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:reactor_niotic",
+      "recipe2": "powah:reactor_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:reactor_nitro"
+    }
+  ]
+}

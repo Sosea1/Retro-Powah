@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "top=false": {
+      "model": "powah:player_transmitter_spirited"
+    },
+    "top=true": {
+      "model": "powah:player_transmitter_spirited_top"
+    }
+  }
+}

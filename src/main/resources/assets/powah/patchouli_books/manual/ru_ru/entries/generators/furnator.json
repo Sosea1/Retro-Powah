@@ -1,0 +1,52 @@
+{
+  "name": "Углегенератор",
+  "icon": "powah:furnator_starter",
+  "category": "generators",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Углегенератор сжигает обычное печное топливо и превращает время его горения в FE."
+    },
+    {
+      "type": "text",
+      "text": "Более высокий уровень повышает скорость выработки и расхода внутреннего запаса топлива, но не меняет общую энергию от одного предмета."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Генерация (FE/t)$()$(br)Начальный: 20$(br)Основной: 80$(br)Усиленный: 200$(br)Пламенный: 800"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Генерация (FE/t)$()$(br)Ниотиевый: 2k$(br)Резонансный: 8k$(br)Нитро: 40k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Макс. отдача (FE/t)$()$(br)Начальный: 80$(br)Основной: 320$(br)Усиленный: 800$(br)Пламенный: 3.2k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Макс. отдача (FE/t)$()$(br)Ниотиевый: 8k$(br)Резонансный: 32k$(br)Нитро: 160k"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:furnator_starter",
+      "recipe2": "powah:furnator_basic",
+      "title": "Рецепты тиров"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:furnator_hardened",
+      "recipe2": "powah:furnator_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:furnator_niotic",
+      "recipe2": "powah:furnator_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:furnator_nitro"
+    }
+  ]
+}

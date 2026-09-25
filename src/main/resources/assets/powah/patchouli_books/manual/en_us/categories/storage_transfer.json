@@ -1,0 +1,6 @@
+{
+  "name": "Storage & Transfer",
+  "description": "Store FE and move it locally or wirelessly",
+  "icon": "powah:energy_cell_starter",
+  "sortnum": 2
+}

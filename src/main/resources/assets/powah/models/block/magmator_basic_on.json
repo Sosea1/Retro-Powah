@@ -1,0 +1,7 @@
+{
+  "parent": "powah:block/magmator",
+  "textures": {
+    "face": "powah:block/magmator_face_lit",
+    "ov": "powah:block/basic_ov"
+  }
+}

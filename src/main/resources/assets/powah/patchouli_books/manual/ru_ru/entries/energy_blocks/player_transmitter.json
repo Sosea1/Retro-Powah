@@ -1,0 +1,48 @@
+{
+  "name": "Беспроводной зарядник",
+  "icon": "powah:player_transmitter_starter",
+  "category": "energy_blocks",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Беспроводной зарядник заряжает FE-предметы привязанного игрока: основной инвентарь, броню, вторую руку и дополнительные слоты экипировки."
+    },
+    {
+      "type": "text",
+      "text": "Вставь привязанную карту связи и подай на зарядник FE."
+    },
+    {
+      "type": "text",
+      "text": "Обычная карта связи работает только в измерении, где установлен зарядник.$(br2)Межпространственная карта связи позволяет заряжать привязанного игрока между измерениями."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Заряд предмета (FE/t)$()$(br)Начальный: 500$(br)Основной: 2k$(br)Усиленный: 5k$(br)Пламенный: 20k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Заряд предмета (FE/t)$()$(br)Ниотиевый: 50k$(br)Резонансный: 200k$(br)Нитро: 1M"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:player_transmitter_starter",
+      "recipe2": "powah:player_transmitter_basic",
+      "title": "Рецепты тиров"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:player_transmitter_hardened",
+      "recipe2": "powah:player_transmitter_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:player_transmitter_niotic",
+      "recipe2": "powah:player_transmitter_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:player_transmitter_nitro"
+    }
+  ]
+}

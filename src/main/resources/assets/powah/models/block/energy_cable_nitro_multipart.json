@@ -1,0 +1,6 @@
+{
+  "parent": "powah:block/cable_multipart",
+  "textures": {
+    "all": "powah:block/energy_cable_nitro"
+  }
+}

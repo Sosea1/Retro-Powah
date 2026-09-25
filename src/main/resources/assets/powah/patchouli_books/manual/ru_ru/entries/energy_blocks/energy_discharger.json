@@ -1,0 +1,52 @@
+{
+  "name": "Энергоразрядник",
+  "icon": "powah:energy_discharger_starter",
+  "category": "energy_blocks",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Энергоразрядник извлекает FE из предметов в семи внутренних слотах и сохраняет её во внутреннем буфере."
+    },
+    {
+      "type": "text",
+      "text": "Кабели и соседние механизмы могут забирать накопленную энергию с настроенных сторон."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Ёмкость (FE)$()$(br)Начальный: 1M$(br)Основной: 4M$(br)Усиленный: 10M$(br)Пламенный: 40M"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Ёмкость (FE)$()$(br)Ниотиевый: 100M$(br)Резонансный: 400M$(br)Нитро: 2B"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Разряд/отдача (FE/t)$()$(br)Начальный: 1k$(br)Основной: 4k$(br)Усиленный: 10k$(br)Пламенный: 40k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Разряд/отдача (FE/t)$()$(br)Ниотиевый: 100k$(br)Резонансный: 400k$(br)Нитро: 2M"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_discharger_starter",
+      "recipe2": "powah:energy_discharger_basic",
+      "title": "Рецепты тиров"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_discharger_hardened",
+      "recipe2": "powah:energy_discharger_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_discharger_niotic",
+      "recipe2": "powah:energy_discharger_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energy_discharger_nitro"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RLR",
+    "LUL",
+    "RLR"
+  ],
+  "key": {
+    "R": {
+      "item": "powah:reactor_starter"
+    },
+    "L": {
+      "item": "powah:capacitor_basic_large"
+    },
+    "U": {
+      "item": "powah:uraninite"
+    }
+  },
+  "result": {
+    "item": "powah:reactor_basic",
+    "count": 4
+  }
+}

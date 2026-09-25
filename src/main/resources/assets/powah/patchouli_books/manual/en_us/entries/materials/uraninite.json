@@ -1,0 +1,32 @@
+{
+  "name": "Uraninite",
+  "icon": "powah:uraninite",
+  "category": "materials",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Uraninite is Powah's reactor fuel and occurs in poor, normal, and dense ore variants.$(br2)Mine it with at least an iron-tier pickaxe. Fortune can improve the drops."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)1.12.2 worldgen defaults$()$(br)Poor: Y 0–64, 8 attempts, vein 5.$(br)Normal: Y 0–20, 6 attempts, vein 4.$(br)Dense: Y 1–8, 3 attempts, vein 3."
+    },
+    {
+      "type": "text",
+      "text": "The dense band is adapted to the old 0–255 world height."
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:uraninite_block",
+      "recipe2": "powah:uraninite_from_block",
+      "title": "Uraninite storage"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:uraninite_raw_block",
+      "recipe2": "powah:uraninite_raw_from_block",
+      "title": "Raw Uraninite storage"
+    }
+  ]
+}

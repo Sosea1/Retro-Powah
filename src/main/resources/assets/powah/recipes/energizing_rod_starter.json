@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " Q ",
+    "TCT",
+    " R "
+  ],
+  "key": {
+    "Q": {
+      "item": "minecraft:quartz"
+    },
+    "T": {
+      "item": "powah:capacitor_basic_tiny"
+    },
+    "C": {
+      "item": "powah:dielectric_casing"
+    },
+    "R": {
+      "item": "powah:dielectric_rod"
+    }
+  },
+  "result": {
+    "item": "powah:energizing_rod_starter"
+  }
+}

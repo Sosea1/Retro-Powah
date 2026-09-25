@@ -1,0 +1,2 @@
+# Preserve source line endings and binary resource bytes across Git checkouts.
+* -text

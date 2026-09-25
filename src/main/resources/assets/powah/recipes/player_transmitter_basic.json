@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "TCT",
+    " R "
+  ],
+  "key": {
+    "P": {
+      "item": "powah:player_transmitter_starter"
+    },
+    "T": {
+      "item": "powah:capacitor_basic"
+    },
+    "C": {
+      "item": "powah:dielectric_casing"
+    },
+    "R": {
+      "item": "powah:dielectric_rod"
+    }
+  },
+  "result": {
+    "item": "powah:player_transmitter_basic"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "powah:furnator_spirited",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "powah:furnator_spirited"
+    },
+    "facing=south": {
+      "model": "powah:furnator_spirited",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "powah:furnator_spirited",
+      "y": 270
+    }
+  }
+}

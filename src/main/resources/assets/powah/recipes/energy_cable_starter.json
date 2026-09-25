@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    "ITI",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "item": "powah:dielectric_rod_horizontal"
+    },
+    "I": {
+      "item": "minecraft:iron_nugget"
+    },
+    "T": {
+      "item": "powah:capacitor_basic_tiny"
+    }
+  },
+  "result": {
+    "item": "powah:energy_cable_starter",
+    "count": 12
+  }
+}

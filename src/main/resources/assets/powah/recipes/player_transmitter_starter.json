@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " E ",
+    "TCT",
+    " R "
+  ],
+  "key": {
+    "E": {
+      "item": "powah:player_aerial_pearl"
+    },
+    "T": {
+      "item": "powah:capacitor_basic_tiny"
+    },
+    "C": {
+      "item": "powah:dielectric_casing"
+    },
+    "R": {
+      "item": "powah:dielectric_rod"
+    }
+  },
+  "result": {
+    "item": "powah:player_transmitter_starter"
+  }
+}

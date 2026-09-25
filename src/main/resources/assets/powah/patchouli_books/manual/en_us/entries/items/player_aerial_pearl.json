@@ -1,0 +1,21 @@
+{
+  "name": "Player Aerial Pearl",
+  "icon": "powah:player_aerial_pearl",
+  "category": "items",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Player Aerial Pearl is part of Player Transmitter progression."
+    },
+    {
+      "type": "text",
+      "text": "Craft an Aerial Pearl first, then use it on a Zombie or Husk. The interaction consumes the Aerial Pearl and gives a Player Aerial Pearl."
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:aerial_pearl",
+      "title": "Aerial Pearl"
+    }
+  ]
+}

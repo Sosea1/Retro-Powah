@@ -1,0 +1,48 @@
+{
+  "name": "Магмогенератор",
+  "icon": "powah:magmator_starter",
+  "category": "generators",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Магмогенератор превращает зарегистрированные горячие жидкости в FE. Стандартное топливо — лава, энергия рассчитывается порциями по 100 mB."
+    },
+    {
+      "type": "text",
+      "text": "Более высокий уровень увеличивает скорость, но не общий выход FE из того же объёма жидкости."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Лава по умолчанию$()$(br)10 000 FE на 100 mB.$(br2)Дополнительные жидкости могут регистрироваться через API Powah."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Генерация (FE/t)$()$(br)Начальный: 20$(br)Основной: 80$(br)Усиленный: 200$(br)Пламенный: 800"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Генерация (FE/t)$()$(br)Ниотиевый: 2k$(br)Резонансный: 8k$(br)Нитро: 40k"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:magmator_starter",
+      "recipe2": "powah:magmator_basic",
+      "title": "Рецепты тиров"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:magmator_hardened",
+      "recipe2": "powah:magmator_blazing"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:magmator_niotic",
+      "recipe2": "powah:magmator_spirited"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:magmator_nitro"
+    }
+  ]
+}

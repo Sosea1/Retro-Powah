@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "powah:ender_cell_basic"
+    }
+  ],
+  "result": {
+    "item": "powah:ender_cell_basic",
+    "count": 1
+  }
+}

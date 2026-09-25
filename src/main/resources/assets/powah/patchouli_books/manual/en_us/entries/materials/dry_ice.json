@@ -1,0 +1,22 @@
+{
+  "name": "Dry Ice",
+  "icon": "powah:dry_ice",
+  "category": "materials",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Dry Ice is a very cold reactor coolant. It can be found underground in sufficiently cold biomes."
+    },
+    {
+      "type": "text",
+      "text": "Default 1.12.2 worldgen: Y 1–64, 9 attempts/chunk, vein size 17, biome temperature at most 0.15. These values are configurable."
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:dry_ice",
+      "text": "Energizing recipe",
+      "title": "2 Packed Ice → Dry Ice$(br)10,000 FE.$(br2)Packed Ice replaces modern Blue Ice for Minecraft 1.12.2."
+    }
+  ]
+}

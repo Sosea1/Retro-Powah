@@ -1,0 +1,21 @@
+{
+  "name": "Powah Wrench",
+  "icon": "powah:wrench",
+  "category": "items",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Powah Wrench has three useful modes."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Config$(): change cable-side I/O.$(br)$(bold)Link$(): link compatible blocks such as Energizing Rods and Orbs.$(br)$(bold)Rotate$(): rotate supported blocks horizontally."
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:wrench",
+      "title": "Crafting"
+    }
+  ]
+}

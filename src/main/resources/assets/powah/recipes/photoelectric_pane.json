@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DLD",
+    "LPL",
+    "DLD"
+  ],
+  "key": {
+    "D": {
+      "item": "powah:dielectric_paste"
+    },
+    "L": {
+      "item": "minecraft:dye",
+      "data": 4
+    },
+    "P": {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "result": {
+    "item": "powah:photoelectric_pane"
+  }
+}

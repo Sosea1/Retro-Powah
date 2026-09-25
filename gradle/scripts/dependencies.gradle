@@ -1,0 +1,56 @@
+apply from: 'gradle/scripts/helpers.gradle'
+
+repositories {
+    exclusiveContent {
+        forRepository {
+            maven {
+                name 'CleanroomMC CurseMaven'
+                url 'https://curse.cleanroommc.com'
+            }
+        }
+        filter {
+            includeGroup 'curse.maven'
+        }
+    }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name 'Modrinth'
+                url 'https://api.modrinth.com/maven'
+            }
+        }
+        filter {
+            includeGroup 'maven.modrinth'
+        }
+    }
+    mavenLocal()
+}
+
+configurations {
+    shade
+    implementation.extendsFrom shade
+}
+
+dependencies {
+    runtimeOnly 'com.cleanroommc:strip-latest-forge-requirements:1.0'
+    runtimeOnly 'com.cleanroommc:osxnarratorblocker:1.0'
+
+    compileOnly rfg.deobf('curse.maven:jei-238222:3043174')
+    // The published CraftTweaker jar has a duplicate AT entry and is needed here only for its API.
+    compileOnly 'curse.maven:crafttweaker-239197:5013567'
+    compileOnly rfg.deobf('curse.maven:the-one-probe-245211:2667280')
+    compileOnly rfg.deobf('curse.maven:hwyla-253449:2568753')
+}
+
+if (!configurations.shade.dependencies.empty) {
+    tasks.named('reobfJar').configure {
+        inputJar.set(tasks.named('shadowJar').flatMap({ it.archiveFile }))
+    }
+}
+
+tasks.shadowJar {
+    // Shadow wires shadowJar into the assemble task, so it runs even when nothing is shaded
+    enabled = !project.configurations.shade.dependencies.empty
+    archiveClassifier = 'uberdev'
+    configurations = [ project.configurations.shade ]
+}

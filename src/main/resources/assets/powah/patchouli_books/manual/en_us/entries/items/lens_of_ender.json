@@ -1,0 +1,21 @@
+{
+  "name": "Lens of Ender",
+  "icon": "powah:lens_of_ender",
+  "category": "items",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Install a Lens of Ender on a Solar Panel to let the panel generate through solid blocks above it."
+    },
+    {
+      "type": "text",
+      "text": "In this 1.12.2 progression, use a Photoelectric Pane on an Enderman or Endermite to obtain the Lens."
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:photoelectric_pane",
+      "title": "Photoelectric Pane"
+    }
+  ]
+}

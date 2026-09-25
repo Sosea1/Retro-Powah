@@ -1,0 +1,101 @@
+{
+  "name": "Energizing",
+  "icon": "powah:energizing_orb",
+  "category": "energy_blocks",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Energizing Orb performs Powah's special energy recipes."
+    },
+    {
+      "type": "text",
+      "text": "Place at least one Energizing Rod within a 9×9 area and link the Rod to the Orb with the Powah Wrench in Link mode. The Orb itself does not need a cable connection."
+    },
+    {
+      "type": "text",
+      "text": "Rods draw FE from cables or adjacent FE blocks and feed the linked Orb. More rods and higher-tier rods increase the available transfer rate."
+    },
+    {
+      "type": "text",
+      "text": "The exact special recipes are also exposed through the Powah JEI category."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Rod transfer (FE/t)$()$(br)Starter: 100$(br)Basic: 400$(br)Hardened: 1k$(br)Blazing: 4k"
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Rod transfer (FE/t)$()$(br)Niotic: 10k$(br)Spirited: 40k$(br)Nitro: 200k"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energizing_orb",
+      "recipe2": "powah:energizing_rod_starter",
+      "title": "Orb + Starter Rod"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energizing_rod_basic",
+      "recipe2": "powah:energizing_rod_hardened"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energizing_rod_blazing",
+      "recipe2": "powah:energizing_rod_niotic"
+    },
+    {
+      "type": "crafting",
+      "recipe": "powah:energizing_rod_spirited",
+      "recipe2": "powah:energizing_rod_nitro"
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:steel_energized",
+      "text": "Iron Ingot + Gold Ingot → 2 Energized Steel$(br)Cost: 10,000 FE.",
+      "title": "Energized Steel"
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:crystal_blazing",
+      "text": "Blaze Rod → Blazing Crystal: 90,000 FE.$(br)Or 4 Blaze Powder → Blazing Crystal: 120,000 FE.",
+      "title": "Blazing Crystal"
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:crystal_niotic",
+      "text": "Diamond → Niotic Crystal$(br)Cost: 300,000 FE.",
+      "title": "Niotic Crystal"
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:crystal_spirited",
+      "text": "Emerald → Spirited Crystal$(br)Cost: 1,000,000 FE.",
+      "title": "Spirited Crystal"
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:ender_core",
+      "text": "Eye of Ender + Dielectric Casing + Tiny Basic Capacitor → Ender Core$(br)Cost: 50,000 FE.",
+      "title": "Ender Core"
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:charged_snowball",
+      "text": "Snowball → Charged Snowball$(br)Cost: 1,000 FE.",
+      "title": "Charged Snowball"
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:dry_ice",
+      "text": "2 Packed Ice → Dry Ice$(br)Cost: 10,000 FE.$(br2)Packed Ice is used because this is the 1.12.2 adaptation.",
+      "title": "Dry Ice"
+    },
+    {
+      "type": "spotlight",
+      "item": "powah:crystal_nitro",
+      "text": "Nether Star + 2 Redstone Blocks + Blazing Crystal Block → 16 Nitro Crystals$(br)Cost: 20,000,000 FE.",
+      "title": "Nitro Crystal"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "CDC",
+    "MMM"
+  ],
+  "key": {
+    "P": {
+      "item": "powah:solar_panel_starter"
+    },
+    "C": {
+      "item": "powah:capacitor_basic"
+    },
+    "D": {
+      "item": "powah:dielectric_casing"
+    },
+    "M": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "powah:solar_panel_basic"
+  }
+}
