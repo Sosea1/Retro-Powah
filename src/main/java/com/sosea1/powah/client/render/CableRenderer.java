@@ -28,9 +28,10 @@ public final class CableRenderer extends TileEntitySpecialRenderer<TileCable> {
         GlStateManager.scale(1.0F, -1.0F, -1.0F);
         GlStateManager.enableRescaleNormal();
 
+        int externalEnergyMask = tile.getRenderExternalEnergyMask();
         for (EnumFacing side : FACINGS) {
             EnergyPortMode mode = tile.getSideMode(side);
-            if (mode == EnergyPortMode.NONE || !tile.hasExternalEnergySide(side)) {
+            if (mode == EnergyPortMode.NONE || (externalEnergyMask & (1 << side.ordinal())) == 0) {
                 continue;
             }
             bindTexture(texture(tile, mode));

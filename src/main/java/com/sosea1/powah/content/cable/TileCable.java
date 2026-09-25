@@ -35,6 +35,8 @@ public final class TileCable extends TileEntity {
     private CableNetwork network;
     private int roundRobinStart;
     private boolean registered;
+    private int renderExternalEnergyMask;
+    private long renderMaskRefreshTick = Long.MIN_VALUE;
 
     public TileCable() {
         this(PowahTier.STARTER);
@@ -134,6 +136,27 @@ public final class TileCable extends TileEntity {
         EnumFacing targetSide = side.getOpposite();
         return target.hasCapability(CapabilityEnergy.ENERGY, targetSide)
                 && target.getCapability(CapabilityEnergy.ENERGY, targetSide) != null;
+    }
+
+    /**
+     * Client-only render cache. Capability presence is queried at most once per second
+     * for a visible cable; gameplay routing and interaction continue to use live queries.
+     */
+    public int getRenderExternalEnergyMask() {
+        if (world == null || !world.isRemote) return 0;
+        long now = world.getTotalWorldTime();
+        if (renderMaskRefreshTick == Long.MIN_VALUE || now < renderMaskRefreshTick
+                || now - renderMaskRefreshTick >= 20L) {
+            int mask = 0;
+            for (EnumFacing side : EnumFacing.values()) {
+                if (hasExternalEnergySide(side)) {
+                    mask |= 1 << side.ordinal();
+                }
+            }
+            renderExternalEnergyMask = mask;
+            renderMaskRefreshTick = now;
+        }
+        return renderExternalEnergyMask;
     }
 
     CableNetwork getNetworkIfPresent() {

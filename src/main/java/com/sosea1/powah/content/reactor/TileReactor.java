@@ -40,6 +40,8 @@ import com.sosea1.powah.registry.ModContent;
  * The surrounding 3x4x3 shell is assembled lazily, one part every five ticks.
  */
 public final class TileReactor extends AbstractEnergyTile implements ITickable {
+    private enum StructureStatus { VALID, INVALID, UNKNOWN }
+
     private static final EnumFacing[] FACINGS = EnumFacing.values();
     public static final int CHARGE_SLOT = 0;
     public static final int FUEL_SLOT = 1;
@@ -176,7 +178,7 @@ public final class TileReactor extends AbstractEnergyTile implements ITickable {
 
         if (!built && assemblyAuthorized) {
             buildStep();
-        } else if (ticks % 40L == 0L && !validateStructure()) {
+        } else if (ticks % 40L == 0L && validateStructure() == StructureStatus.INVALID) {
             built = false;
             buildIndex = 0;
             markDirty();
@@ -197,6 +199,7 @@ public final class TileReactor extends AbstractEnergyTile implements ITickable {
             processFuel();
             if (fuel > 0.0D) {
                 boolean generating = !getEnergyBuffer().isFull();
+                nowRunning = generating;
                 processCarbon(generating);
                 processRedstone(generating);
                 processTemperature(generating);
@@ -212,7 +215,6 @@ public final class TileReactor extends AbstractEnergyTile implements ITickable {
                         onEnergyChanged();
                     }
                 }
-                nowRunning = true;
             }
         }
 
@@ -400,7 +402,7 @@ public final class TileReactor extends AbstractEnergyTile implements ITickable {
                     return;
                 }
                 part.bind(pos, isExtractorPosition(target));
-                return;
+                continue;
             }
             if (!world.getBlockState(target).getBlock().isReplaceable(world, target)) {
                 buildIndex--;
@@ -422,32 +424,38 @@ public final class TileReactor extends AbstractEnergyTile implements ITickable {
             }
             return;
         }
-        built = validateStructure();
-        if (!built) {
+        StructureStatus status = validateStructure();
+        if (status == StructureStatus.VALID) {
+            built = true;
+        } else if (status == StructureStatus.INVALID) {
+            built = false;
             buildIndex = 0;
+            buildCooldown = 20;
+        } else {
+            // Preserve the cursor while a structure position is temporarily unloaded.
             buildCooldown = 20;
         }
         markDirty();
     }
 
-    private boolean validateStructure() {
+    private StructureStatus validateStructure() {
         for (int i = 0; i < 36; i++) {
             BlockPos target = structurePosition(i);
             if (target.equals(pos)) {
                 continue;
             }
             if (!world.isBlockLoaded(target)) {
-                return false;
+                return StructureStatus.UNKNOWN;
             }
             if (world.getBlockState(target).getBlock() != ModContent.reactorPart(getTier())) {
-                return false;
+                return StructureStatus.INVALID;
             }
             TileEntity raw = world.getTileEntity(target);
             if (!(raw instanceof TileReactorPart) || !pos.equals(((TileReactorPart) raw).getCorePos())) {
-                return false;
+                return StructureStatus.INVALID;
             }
         }
-        return true;
+        return StructureStatus.VALID;
     }
 
     /** Tears down the passive shell without converting stored fuel into a different item. */

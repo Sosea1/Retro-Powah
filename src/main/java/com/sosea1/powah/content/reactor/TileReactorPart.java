@@ -5,7 +5,6 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -14,7 +13,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import com.sosea1.powah.common.tier.PowahTier;
 
 /** Passive reactor-shell tile forwarding capabilities to its loaded core without chunk loading. */
-public final class TileReactorPart extends TileEntity implements ITickable {
+public final class TileReactorPart extends TileEntity {
     private static final String NBT_CORE = "PowahReactorCore";
     private static final String NBT_EXTRACTOR = "PowahReactorExtractor";
     private static final String NBT_TIER = "PowahReactorTier";
@@ -34,7 +33,11 @@ public final class TileReactorPart extends TileEntity implements ITickable {
         if (core == null) {
             throw new NullPointerException("core");
         }
-        this.corePos = core.toImmutable();
+        BlockPos immutableCore = core.toImmutable();
+        if (immutableCore.equals(corePos) && this.extractor == extractor) {
+            return;
+        }
+        this.corePos = immutableCore;
         this.extractor = extractor;
         markDirty();
         if (world != null && !world.isRemote) {
@@ -49,19 +52,6 @@ public final class TileReactorPart extends TileEntity implements ITickable {
     public boolean isReactorBuilt() {
         TileReactor core = getCore();
         return core != null && core.isBuilt();
-    }
-
-    @Override
-    public void update() {
-        if (world == null || world.isRemote || world.getTotalWorldTime() % 40L != 0L
-                || !world.isBlockLoaded(corePos)) {
-            return;
-        }
-        if (!(world.getTileEntity(corePos) instanceof TileReactor)) {
-            // Demolition cannot force-load distant shell chunks. Remove any leftover
-            // shell piece when its chunk is next loaded and the core is absent.
-            world.setBlockToAir(pos);
-        }
     }
 
     public TileReactor getCore() {
