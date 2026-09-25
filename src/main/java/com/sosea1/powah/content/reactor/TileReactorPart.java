@@ -15,10 +15,12 @@ import com.sosea1.powah.common.tier.PowahTier;
 /** Passive reactor-shell tile forwarding capabilities to its loaded core without chunk loading. */
 public final class TileReactorPart extends TileEntity {
     private static final String NBT_CORE = "PowahReactorCore";
+    private static final String NBT_BOUND = "PowahReactorCoreBound";
     private static final String NBT_EXTRACTOR = "PowahReactorExtractor";
     private static final String NBT_TIER = "PowahReactorTier";
 
     private BlockPos corePos = BlockPos.ORIGIN;
+    private boolean coreBound;
     private boolean extractor;
     private PowahTier tier = PowahTier.STARTER;
 
@@ -34,10 +36,11 @@ public final class TileReactorPart extends TileEntity {
             throw new NullPointerException("core");
         }
         BlockPos immutableCore = core.toImmutable();
-        if (immutableCore.equals(corePos) && this.extractor == extractor) {
+        if (coreBound && immutableCore.equals(corePos) && this.extractor == extractor) {
             return;
         }
         this.corePos = immutableCore;
+        this.coreBound = true;
         this.extractor = extractor;
         markDirty();
         if (world != null && !world.isRemote) {
@@ -47,6 +50,7 @@ public final class TileReactorPart extends TileEntity {
     }
 
     public BlockPos getCorePos() { return corePos; }
+    public boolean isCoreBound() { return coreBound; }
     public boolean isExtractor() { return extractor; }
     public PowahTier getTier() { return tier; }
     public boolean isReactorBuilt() {
@@ -55,7 +59,7 @@ public final class TileReactorPart extends TileEntity {
     }
 
     public TileReactor getCore() {
-        if (world == null || corePos == null || !world.isBlockLoaded(corePos)) {
+        if (world == null || !coreBound || corePos == null || !world.isBlockLoaded(corePos)) {
             return null;
         }
         TileEntity raw = world.getTileEntity(corePos);
@@ -96,6 +100,7 @@ public final class TileReactorPart extends TileEntity {
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         compound.setLong(NBT_CORE, corePos.toLong());
+        compound.setBoolean(NBT_BOUND, coreBound);
         compound.setBoolean(NBT_EXTRACTOR, extractor);
         compound.setByte(NBT_TIER, (byte) tier.ordinal());
         return compound;
@@ -105,6 +110,10 @@ public final class TileReactorPart extends TileEntity {
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         corePos = BlockPos.fromLong(compound.getLong(NBT_CORE));
+        // Older versions always serialized a core position, including ORIGIN.
+        // Preserve that link as bound; newly saved unbound parts carry the flag.
+        coreBound = compound.hasKey(NBT_BOUND) ? compound.getBoolean(NBT_BOUND)
+                : compound.hasKey(NBT_CORE);
         extractor = compound.getBoolean(NBT_EXTRACTOR);
         int index = compound.getByte(NBT_TIER) & 0xFF;
         PowahTier[] values = PowahTier.values();

@@ -40,7 +40,23 @@ import com.sosea1.powah.registry.ModContent;
  * The surrounding 3x4x3 shell is assembled lazily, one part every five ticks.
  */
 public final class TileReactor extends AbstractEnergyTile implements ITickable {
-    private enum StructureStatus { VALID, INVALID, UNKNOWN }
+    enum StructureStatus {
+        VALID, INVALID, UNKNOWN;
+
+        StructureStatus merge(StructureStatus observed) {
+            if (this == INVALID || observed == INVALID) return INVALID;
+            if (this == UNKNOWN || observed == UNKNOWN) return UNKNOWN;
+            return VALID;
+        }
+    }
+
+    enum DemolitionResult {
+        COMPLETE, STALE, RETRY;
+
+        boolean shouldKeepRequest() {
+            return this == RETRY;
+        }
+    }
 
     private static final EnumFacing[] FACINGS = EnumFacing.values();
     public static final int CHARGE_SLOT = 0;
@@ -130,6 +146,7 @@ public final class TileReactor extends AbstractEnergyTile implements ITickable {
     private boolean built;
     private boolean assemblyAuthorized;
     private boolean assemblyRefundable;
+    private boolean demolitionStarted;
     private int buildIndex;
     private int buildCooldown;
     private long ticks;
@@ -176,12 +193,13 @@ public final class TileReactor extends AbstractEnergyTile implements ITickable {
         }
         ticks++;
 
-        if (!built && assemblyAuthorized) {
+        if (built) {
+            if (ticks % 40L == 0L && validateStructure() == StructureStatus.INVALID) {
+                tryDemolitionFromPart();
+                return;
+            }
+        } else if (assemblyAuthorized) {
             buildStep();
-        } else if (ticks % 40L == 0L && validateStructure() == StructureStatus.INVALID) {
-            built = false;
-            buildIndex = 0;
-            markDirty();
         }
 
         pushReactorEnergy(transfer(getTier()));
@@ -396,7 +414,7 @@ public final class TileReactor extends AbstractEnergyTile implements ITickable {
             if (world.getBlockState(target).getBlock() == ModContent.reactorPart(getTier())
                     && existingTile instanceof TileReactorPart) {
                 TileReactorPart part = (TileReactorPart) existingTile;
-                if (!BlockPos.ORIGIN.equals(part.getCorePos()) && !pos.equals(part.getCorePos())) {
+                if (part.isCoreBound() && !pos.equals(part.getCorePos())) {
                     buildIndex--;
                     buildCooldown = 20;
                     return;
@@ -439,23 +457,35 @@ public final class TileReactor extends AbstractEnergyTile implements ITickable {
     }
 
     private StructureStatus validateStructure() {
+        StructureStatus status = StructureStatus.VALID;
         for (int i = 0; i < 36; i++) {
             BlockPos target = structurePosition(i);
             if (target.equals(pos)) {
                 continue;
             }
             if (!world.isBlockLoaded(target)) {
-                return StructureStatus.UNKNOWN;
+                status = status.merge(StructureStatus.UNKNOWN);
+                continue;
             }
             if (world.getBlockState(target).getBlock() != ModContent.reactorPart(getTier())) {
-                return StructureStatus.INVALID;
+                return status.merge(StructureStatus.INVALID);
             }
             TileEntity raw = world.getTileEntity(target);
-            if (!(raw instanceof TileReactorPart) || !pos.equals(((TileReactorPart) raw).getCorePos())) {
-                return StructureStatus.INVALID;
+            if (!(raw instanceof TileReactorPart)) {
+                return status.merge(StructureStatus.INVALID);
+            }
+            TileReactorPart part = (TileReactorPart) raw;
+            // Legacy saves used ORIGIN both as the default and as a real link.
+            // A matching origin reactor is the only safe context to adopt that
+            // ambiguous link, preserving already-built reactors across upgrade.
+            if (!part.isCoreBound() && BlockPos.ORIGIN.equals(pos)) {
+                part.bind(pos, isExtractorPosition(target));
+            }
+            if (!part.isCoreBound() || !pos.equals(part.getCorePos())) {
+                return status.merge(StructureStatus.INVALID);
             }
         }
-        return StructureStatus.VALID;
+        return status;
     }
 
     /** Tears down the passive shell without converting stored fuel into a different item. */
@@ -463,8 +493,33 @@ public final class TileReactor extends AbstractEnergyTile implements ITickable {
         if (world == null || world.isRemote) {
             return;
         }
+        demolitionStarted = true;
         demolishParts();
         markDirty();
+    }
+
+    DemolitionResult tryDemolitionFromPart() {
+        if (world == null || world.isRemote || !world.isBlockLoaded(pos)) {
+            return DemolitionResult.RETRY;
+        }
+        if (world.getBlockState(pos).getBlock() != ModContent.reactor(getTier())
+                || world.getTileEntity(pos) != this) {
+            return DemolitionResult.STALE;
+        }
+        if (!beginDemolition()) {
+            return DemolitionResult.COMPLETE;
+        }
+        if (world.destroyBlock(pos, true)) {
+            return DemolitionResult.COMPLETE;
+        }
+        demolitionStarted = false;
+        return DemolitionResult.RETRY;
+    }
+
+    boolean beginDemolition() {
+        if (demolitionStarted) return false;
+        demolitionStarted = true;
+        return true;
     }
 
     private void syncVisualStateIfNeeded() {

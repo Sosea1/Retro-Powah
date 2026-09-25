@@ -79,16 +79,39 @@ public final class BlockReactorPart extends Block {
         if (!world.isRemote) {
             TileEntity raw = world.getTileEntity(pos);
             if (raw instanceof TileReactorPart) {
-                TileReactor core = ((TileReactorPart) raw).getCore();
-                if (core != null && core.isBuilt()) {
+                TileReactorPart part = (TileReactorPart) raw;
+                BlockPos corePos = part.getCorePos();
+                if (part.isCoreBound() && !world.isBlockLoaded(corePos)) {
+                    // A player break is cancellable; do not break half of a reactor
+                    // while its core is unavailable, and never force-load the chunk.
+                    return false;
+                }
+                TileEntity coreTile = part.isCoreBound() ? world.getTileEntity(corePos) : null;
+                if (coreTile instanceof TileReactor) {
+                    TileReactor core = (TileReactor) coreTile;
                     // Destroying the core invokes its normal 36-block refund and
                     // removes every linked shell part without duplicate drops.
-                    return BlockProtection.canBreak(player, world, core.getPos())
-                            && world.destroyBlock(core.getPos(), true);
+                    if (!BlockProtection.canBreak(player, world, corePos)) return false;
+                    TileReactor.DemolitionResult result = core.tryDemolitionFromPart();
+                    if (result == TileReactor.DemolitionResult.COMPLETE) return true;
+                    if (result == TileReactor.DemolitionResult.RETRY) return false;
                 }
             }
         }
         return super.removedByPlayer(state, world, pos, player, willHarvest);
+    }
+
+    @Override
+    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+        // Chunk.setBlockState calls breakBlock while the old tile is still
+        // available. Capture the link before super removes that tile.
+        TileEntity raw = world.getTileEntity(pos);
+        boolean coreBound = raw instanceof TileReactorPart && ((TileReactorPart) raw).isCoreBound();
+        BlockPos corePos = coreBound ? ((TileReactorPart) raw).getCorePos().toImmutable() : BlockPos.ORIGIN;
+        if (!world.isRemote && coreBound) {
+            ReactorPartLifecycle.requestDemolition(world, corePos);
+        }
+        super.breakBlock(world, pos, state);
     }
 
     @Override

@@ -13,6 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.WorldServer;
+import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -42,8 +43,28 @@ public final class ReactorPartLifecycle {
             }
         }
         ChunkPos loadedChunk = chunk.getPos();
-        pending.wakeCoreChunk(ChunkPos.asLong(loadedChunk.x, loadedChunk.z),
-                world.getTotalWorldTime() + 1L);
+        long chunkKey = ChunkPos.asLong(loadedChunk.x, loadedChunk.z);
+        pending.wakeCoreChunk(chunkKey, world.getTotalWorldTime() + 1L);
+        for (BlockPos corePos : PendingReactorDemolitions.get(world).positionsInChunk(loadedChunk.x, loadedChunk.z)) {
+            pending.scheduleDemolition(corePos, world.getTotalWorldTime() + 1L);
+        }
+    }
+
+    /** Handles non-player removals without ever forcing the linked core chunk to load. */
+    public static void requestDemolition(World world, BlockPos corePos) {
+        if (world == null || world.isRemote || !(world instanceof WorldServer) || corePos == null) return;
+        WorldServer serverWorld = (WorldServer) world;
+        if (serverWorld.isBlockLoaded(corePos)) {
+            TileEntity raw = serverWorld.getTileEntity(corePos);
+            if (!(raw instanceof TileReactor)) return;
+            TileReactor.DemolitionResult result = ((TileReactor) raw).tryDemolitionFromPart();
+            if (result != TileReactor.DemolitionResult.RETRY) return;
+        }
+
+        // Persist intent before scheduling transient work so a server shutdown
+        // between chunk unload and processing cannot lose the demolition.
+        PendingReactorDemolitions.get(serverWorld).add(corePos);
+        state(serverWorld).scheduleDemolition(corePos, serverWorld.getTotalWorldTime() + 1L);
     }
 
     @SubscribeEvent
@@ -77,6 +98,8 @@ public final class ReactorPartLifecycle {
         private final Set<BlockPos> pendingPositions = new HashSet<BlockPos>();
         private final Map<Long, Set<BlockPos>> dueByTick = new HashMap<Long, Set<BlockPos>>();
         private final Map<Long, Set<BlockPos>> waitingByCoreChunk = new HashMap<Long, Set<BlockPos>>();
+        private final Set<BlockPos> pendingDemolitions = new HashSet<BlockPos>();
+        private final Map<Long, Set<BlockPos>> demolitionsByTick = new HashMap<Long, Set<BlockPos>>();
 
         private void schedule(TileReactorPart part, long dueTick) {
             BlockPos partPos = part.getPos().toImmutable();
@@ -89,6 +112,13 @@ public final class ReactorPartLifecycle {
             Set<BlockPos> waiting = waitingByCoreChunk.remove(chunkKey);
             if (waiting == null) return;
             dueByTick.computeIfAbsent(dueTick, ignored -> new HashSet<BlockPos>()).addAll(waiting);
+        }
+
+        private void scheduleDemolition(BlockPos corePos, long dueTick) {
+            BlockPos immutablePos = corePos.toImmutable();
+            if (pendingDemolitions.add(immutablePos)) {
+                demolitionsByTick.computeIfAbsent(dueTick, ignored -> new HashSet<BlockPos>()).add(immutablePos);
+            }
         }
 
         private void process(WorldServer world, long currentTick) {
@@ -114,7 +144,16 @@ public final class ReactorPartLifecycle {
                     continue;
                 }
 
-                BlockPos corePos = ((TileReactorPart) rawPart).getCorePos();
+                TileReactorPart part = (TileReactorPart) rawPart;
+                if (!part.isCoreBound()) {
+                    if (world.getBlockState(partPos).getBlock() instanceof BlockReactorPart) {
+                        world.setBlockState(partPos, Blocks.AIR.getDefaultState(), 2 | 16);
+                    }
+                    pendingPositions.remove(partPos);
+                    continue;
+                }
+
+                BlockPos corePos = part.getCorePos();
                 if (!world.isBlockLoaded(corePos)) {
                     ChunkPos coreChunk = new ChunkPos(corePos);
                     waitingByCoreChunk.computeIfAbsent(ChunkPos.asLong(coreChunk.x, coreChunk.z),
@@ -130,10 +169,42 @@ public final class ReactorPartLifecycle {
                 }
                 pendingPositions.remove(partPos);
             }
+
+            List<BlockPos> readyDemolitions = new ArrayList<BlockPos>();
+            Iterator<Map.Entry<Long, Set<BlockPos>>> demolitions = demolitionsByTick.entrySet().iterator();
+            while (demolitions.hasNext()) {
+                Map.Entry<Long, Set<BlockPos>> entry = demolitions.next();
+                if (entry.getKey().longValue() > currentTick) continue;
+                readyDemolitions.addAll(entry.getValue());
+                demolitions.remove();
+            }
+
+            PendingReactorDemolitions saved = null;
+            for (BlockPos corePos : readyDemolitions) {
+                if (!world.isBlockLoaded(corePos)) {
+                    pendingDemolitions.remove(corePos);
+                    continue; // The saved intent is re-queued by the next ChunkEvent.Load.
+                }
+                TileEntity raw = world.getTileEntity(corePos);
+                if (!(raw instanceof TileReactor)) {
+                    if (saved == null) saved = PendingReactorDemolitions.get(world);
+                    saved.remove(corePos);
+                    pendingDemolitions.remove(corePos);
+                    continue;
+                }
+                TileReactor.DemolitionResult result = ((TileReactor) raw).tryDemolitionFromPart();
+                if (result.shouldKeepRequest()) {
+                    scheduleDemolition(corePos, currentTick + 20L);
+                } else {
+                    if (saved == null) saved = PendingReactorDemolitions.get(world);
+                    saved.remove(corePos);
+                    pendingDemolitions.remove(corePos);
+                }
+            }
         }
 
         private boolean isEmpty() {
-            return pendingPositions.isEmpty();
+            return pendingPositions.isEmpty() && pendingDemolitions.isEmpty();
         }
     }
 }
