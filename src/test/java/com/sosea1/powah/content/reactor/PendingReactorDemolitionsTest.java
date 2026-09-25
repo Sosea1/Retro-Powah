@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
@@ -47,6 +49,29 @@ final class PendingReactorDemolitionsTest {
                 new Class<?>[] {int.class, int.class}, 1, -1);
         assertEquals(1, matchingChunk.size());
         assertTrue(matchingChunk.contains(east));
+    }
+
+    @Test
+    void retryReschedulesAnAlreadyPendingCore() throws Exception {
+        Class<?> type;
+        try {
+            type = Class.forName("com.sosea1.powah.content.reactor.PendingDemolitionSchedule");
+        } catch (ClassNotFoundException missing) {
+            fail("PendingDemolitionSchedule has not been implemented yet", missing);
+            return;
+        }
+        Constructor<?> constructor = type.getDeclaredConstructor();
+        constructor.setAccessible(true);
+        Object schedule = constructor.newInstance();
+        BlockPos core = new BlockPos(17, 64, -1);
+
+        invoke(schedule, "schedule", new Class<?>[] {BlockPos.class, long.class}, core, 10L);
+        List<?> firstAttempt = (List<?>) invoke(schedule, "drainDue", new Class<?>[] {long.class}, 10L);
+        assertEquals(Collections.singletonList(core), firstAttempt);
+
+        invoke(schedule, "reschedule", new Class<?>[] {BlockPos.class, long.class}, core, 30L);
+        List<?> retry = (List<?>) invoke(schedule, "drainDue", new Class<?>[] {long.class}, 30L);
+        assertEquals(Collections.singletonList(core), retry);
     }
 
     private static Class<?> loadTargetOrFail() {

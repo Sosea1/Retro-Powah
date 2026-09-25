@@ -98,8 +98,7 @@ public final class ReactorPartLifecycle {
         private final Set<BlockPos> pendingPositions = new HashSet<BlockPos>();
         private final Map<Long, Set<BlockPos>> dueByTick = new HashMap<Long, Set<BlockPos>>();
         private final Map<Long, Set<BlockPos>> waitingByCoreChunk = new HashMap<Long, Set<BlockPos>>();
-        private final Set<BlockPos> pendingDemolitions = new HashSet<BlockPos>();
-        private final Map<Long, Set<BlockPos>> demolitionsByTick = new HashMap<Long, Set<BlockPos>>();
+        private final PendingDemolitionSchedule demolitions = new PendingDemolitionSchedule();
 
         private void schedule(TileReactorPart part, long dueTick) {
             BlockPos partPos = part.getPos().toImmutable();
@@ -115,10 +114,7 @@ public final class ReactorPartLifecycle {
         }
 
         private void scheduleDemolition(BlockPos corePos, long dueTick) {
-            BlockPos immutablePos = corePos.toImmutable();
-            if (pendingDemolitions.add(immutablePos)) {
-                demolitionsByTick.computeIfAbsent(dueTick, ignored -> new HashSet<BlockPos>()).add(immutablePos);
-            }
+            demolitions.schedule(corePos, dueTick);
         }
 
         private void process(WorldServer world, long currentTick) {
@@ -170,41 +166,32 @@ public final class ReactorPartLifecycle {
                 pendingPositions.remove(partPos);
             }
 
-            List<BlockPos> readyDemolitions = new ArrayList<BlockPos>();
-            Iterator<Map.Entry<Long, Set<BlockPos>>> demolitions = demolitionsByTick.entrySet().iterator();
-            while (demolitions.hasNext()) {
-                Map.Entry<Long, Set<BlockPos>> entry = demolitions.next();
-                if (entry.getKey().longValue() > currentTick) continue;
-                readyDemolitions.addAll(entry.getValue());
-                demolitions.remove();
-            }
-
             PendingReactorDemolitions saved = null;
-            for (BlockPos corePos : readyDemolitions) {
+            for (BlockPos corePos : demolitions.drainDue(currentTick)) {
                 if (!world.isBlockLoaded(corePos)) {
-                    pendingDemolitions.remove(corePos);
+                    demolitions.defer(corePos);
                     continue; // The saved intent is re-queued by the next ChunkEvent.Load.
                 }
                 TileEntity raw = world.getTileEntity(corePos);
                 if (!(raw instanceof TileReactor)) {
                     if (saved == null) saved = PendingReactorDemolitions.get(world);
                     saved.remove(corePos);
-                    pendingDemolitions.remove(corePos);
+                    demolitions.remove(corePos);
                     continue;
                 }
                 TileReactor.DemolitionResult result = ((TileReactor) raw).tryDemolitionFromPart();
                 if (result.shouldKeepRequest()) {
-                    scheduleDemolition(corePos, currentTick + 20L);
+                    demolitions.reschedule(corePos, currentTick + 20L);
                 } else {
                     if (saved == null) saved = PendingReactorDemolitions.get(world);
                     saved.remove(corePos);
-                    pendingDemolitions.remove(corePos);
+                    demolitions.remove(corePos);
                 }
             }
         }
 
         private boolean isEmpty() {
-            return pendingPositions.isEmpty() && pendingDemolitions.isEmpty();
+            return pendingPositions.isEmpty() && demolitions.isEmpty();
         }
     }
 }
