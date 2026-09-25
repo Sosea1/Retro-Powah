@@ -164,6 +164,9 @@ public final class TileFurnator extends AbstractEnergyTile implements ITickable 
         fuel.shrink(1);
         if (fuel.isEmpty()) {
             inventory.setStackInSlot(FUEL_SLOT, container);
+        } else if (!container.isEmpty()) {
+            net.minecraft.inventory.InventoryHelper.spawnItemStack(world,
+                    pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, container);
         }
 
         carbon = fuelEnergy;

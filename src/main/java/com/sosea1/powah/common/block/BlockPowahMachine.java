@@ -8,6 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.stats.StatList;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
@@ -137,6 +138,25 @@ public abstract class BlockPowahMachine extends Block {
             ((AbstractEnergyTile) tile).getEnergyBuffer().setEnergy(Math.max(0L, tag.getLong(NBT_PORTABLE_ENERGY)));
             tile.markDirty();
         }
+    }
+
+    @Override
+    public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state,
+                             TileEntity tile, ItemStack tool) {
+        // In 1.12 removedByPlayer may already have replaced the block with air by
+        // harvestBlock, so getDrops(pos) can no longer see the tile's portable data.
+        if (!keepsEnergyOnBreak() || tile == null) {
+            super.harvestBlock(world, player, pos, state, tile, tool);
+            return;
+        }
+        Item item = Item.getItemFromBlock(this);
+        if (item != null && item != Items.AIR) {
+            ItemStack drop = new ItemStack(item);
+            writePortableState(drop, tile);
+            spawnAsEntity(world, pos, drop);
+        }
+        player.addStat(StatList.getBlockStats(this));
+        player.addExhaustion(0.005F);
     }
 
     protected static void writePortableFluid(ItemStack stack, FluidTank tank) {

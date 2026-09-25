@@ -296,17 +296,19 @@ public abstract class AbstractEnergyTile extends TileEntity {
                 break;
             }
 
-            int accepted = target.receiveEnergy(offer, false);
-            if (accepted <= 0) {
+            long extracted = energy.consume(offer, false);
+            if (extracted <= 0L) {
                 continue;
             }
-
-            long extracted = energy.extract(accepted, false);
-            if (extracted <= 0L) {
-                break;
+            int accepted = Math.max(0, Math.min(EnergyIntMath.saturatedInt(extracted),
+                    target.receiveEnergy(EnergyIntMath.saturatedInt(extracted), false)));
+            long delivered = Math.min(extracted, accepted);
+            long refund = extracted - delivered;
+            if (refund > 0L) {
+                energy.generate(refund, false);
             }
-            transferred += extracted;
-            remaining -= extracted;
+            transferred += delivered;
+            remaining -= delivered;
         }
 
         if (transferred > 0L) {

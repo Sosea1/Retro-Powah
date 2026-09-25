@@ -28,7 +28,6 @@ public final class TileEnergizingRod extends AbstractEnergyTile implements ITick
     private BlockPos orbPos;
     private int transferCooldown;
     private int relinkCooldown;
-    private int relinkAttempts = 3;
     private long lastTransfer;
     private long lastSyncedEnergy = -1L;
     private int clientSyncCooldown = 0;
@@ -122,9 +121,8 @@ public final class TileEnergizingRod extends AbstractEnergyTile implements ITick
                 if (orbPos != null) {
                     setOrbPos(null);
                 }
-                if (relinkAttempts > 0 && ++relinkCooldown >= 20) {
+                if (++relinkCooldown >= 200) {
                     relinkCooldown = 0;
-                    relinkAttempts--;
                     tryLinkNearestOrb(configuredRange());
                 }
                 transferCooldown = 0;
@@ -132,7 +130,6 @@ public final class TileEnergizingRod extends AbstractEnergyTile implements ITick
                 return;
             }
             relinkCooldown = 0;
-            relinkAttempts = 0;
 
             if (!orb.containsRecipe() || getEnergyBuffer().isEmpty()) {
                 if (transferCooldown > 0) {
@@ -204,7 +201,6 @@ public final class TileEnergizingRod extends AbstractEnergyTile implements ITick
         if (orbPos == null ? this.orbPos != null : !orbPos.equals(this.orbPos)) {
             this.orbPos = orbPos;
             relinkCooldown = 0;
-            relinkAttempts = orbPos == null ? 3 : 0;
             markDirty();
             syncClientState();
         }
@@ -214,7 +210,6 @@ public final class TileEnergizingRod extends AbstractEnergyTile implements ITick
     public void onLoad() {
         super.onLoad();
         if (orbPos == null) {
-            relinkAttempts = 3;
             relinkCooldown = 0;
         }
     }

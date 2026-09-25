@@ -14,6 +14,9 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraft.tileentity.TileEntity;
 
 /** Reactor item consumes all 36 shell blocks atomically, matching modern Powah's footprint. */
@@ -38,8 +41,24 @@ public final class ItemReactorBlock extends ItemBlock {
         }
 
         BlockPos corePos = placementPosition(world, pos, facing);
-        if (!canFitStructure(world, corePos) || hasLivingEntityInStructure(world, corePos)) {
+        if (!canFitStructure(world, corePos, player, facing, held)
+                || hasLivingEntityInStructure(world, corePos)) {
             return EnumActionResult.FAIL;
+        }
+
+        if (!world.isRemote) {
+            java.util.List<BlockSnapshot> snapshots = new java.util.ArrayList<BlockSnapshot>(STRUCTURE_BLOCKS - 1);
+            for (int y = 0; y < 4; y++) {
+                for (int x = -1; x <= 1; x++) {
+                    for (int z = -1; z <= 1; z++) {
+                        BlockPos target = corePos.add(x, y, z);
+                        if (!target.equals(corePos)) snapshots.add(BlockSnapshot.getBlockSnapshot(world, target));
+                    }
+                }
+            }
+            BlockEvent.EntityMultiPlaceEvent event = new BlockEvent.EntityMultiPlaceEvent(snapshots,
+                    world.getBlockState(pos), player);
+            if (MinecraftForge.EVENT_BUS.post(event)) return EnumActionResult.FAIL;
         }
 
         EnumActionResult result = super.onItemUse(player, world, pos, hand, facing, hitX, hitY, hitZ);
@@ -101,6 +120,11 @@ public final class ItemReactorBlock extends ItemBlock {
     }
 
     public static boolean canFitStructure(World world, BlockPos core) {
+        return canFitStructure(world, core, null, EnumFacing.UP, ItemStack.EMPTY);
+    }
+
+    private static boolean canFitStructure(World world, BlockPos core, EntityPlayer player,
+                                          EnumFacing side, ItemStack stack) {
         for (int y = 0; y < 4; y++) {
             for (int x = -1; x <= 1; x++) {
                 for (int z = -1; z <= 1; z++) {
@@ -109,6 +133,9 @@ public final class ItemReactorBlock extends ItemBlock {
                             || !world.getBlockState(target).getBlock().isReplaceable(world, target)) {
                         return false;
                     }
+                    if (player != null && !world.isRemote
+                            && (!player.canPlayerEdit(target, side, stack)
+                            || !world.isBlockModifiable(player, target))) return false;
                 }
             }
         }

@@ -219,6 +219,7 @@ public final class TileCable extends TileEntity {
                 }
                 TileEntity sourceCableTile = world.getTileEntity(endpoint.cablePos);
                 if (!(sourceCableTile instanceof TileCable)
+                        || !((TileCable) sourceCableTile).isOperationAllowed()
                         || !((TileCable) sourceCableTile).getSideMode(endpoint.cableSide).canExtract()) {
                     continue;
                 }
@@ -285,6 +286,7 @@ public final class TileCable extends TileEntity {
                 }
                 TileEntity sourceCableTile = world.getTileEntity(endpoint.cablePos);
                 if (!(sourceCableTile instanceof TileCable)
+                        || !((TileCable) sourceCableTile).isOperationAllowed()
                         || !((TileCable) sourceCableTile).getSideMode(endpoint.cableSide).canReceive()) {
                     continue;
                 }

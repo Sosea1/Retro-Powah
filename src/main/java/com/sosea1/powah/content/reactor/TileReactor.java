@@ -251,16 +251,18 @@ public final class TileReactor extends AbstractEnergyTile implements ITickable {
                 continue;
             }
             int offer = EnergyIntMath.saturatedInt(remaining);
-            int accepted = storage.receiveEnergy(offer, false);
-            if (accepted <= 0) {
+            long extracted = getEnergyBuffer().consume(offer, false);
+            if (extracted <= 0L) {
                 continue;
             }
-            long extracted = getEnergyBuffer().extract(accepted, false);
-            if (extracted <= 0L) {
-                break;
+            int accepted = Math.max(0, Math.min(EnergyIntMath.saturatedInt(extracted),
+                    storage.receiveEnergy(EnergyIntMath.saturatedInt(extracted), false)));
+            long delivered = Math.min(extracted, accepted);
+            if (extracted > delivered) {
+                getEnergyBuffer().generate(extracted - delivered, false);
             }
-            transferred += extracted;
-            remaining -= extracted;
+            transferred += delivered;
+            remaining -= delivered;
         }
         if (transferred > 0L) {
             onEnergyChanged();
@@ -405,14 +407,26 @@ public final class TileReactor extends AbstractEnergyTile implements ITickable {
                 buildCooldown = 20;
                 return;
             }
-            world.setBlockState(target, ModContent.reactorPart(getTier()).getDefaultState(), 3);
+            if (!world.setBlockState(target, ModContent.reactorPart(getTier()).getDefaultState(), 3)) {
+                buildIndex--;
+                buildCooldown = 20;
+                return;
+            }
             TileEntity tile = world.getTileEntity(target);
             if (tile instanceof TileReactorPart) {
                 ((TileReactorPart) tile).bind(pos, isExtractorPosition(target));
+            } else {
+                buildIndex--;
+                buildCooldown = 20;
+                return;
             }
             return;
         }
         built = validateStructure();
+        if (!built) {
+            buildIndex = 0;
+            buildCooldown = 20;
+        }
         markDirty();
     }
 
@@ -423,7 +437,7 @@ public final class TileReactor extends AbstractEnergyTile implements ITickable {
                 continue;
             }
             if (!world.isBlockLoaded(target)) {
-                continue;
+                return false;
             }
             if (world.getBlockState(target).getBlock() != ModContent.reactorPart(getTier())) {
                 return false;
@@ -436,21 +450,12 @@ public final class TileReactor extends AbstractEnergyTile implements ITickable {
         return true;
     }
 
-    /**
-     * Tears down the passive shell and refunds whole Uraninite fuel units already
-     * committed to the internal reactor buffer. Fractional fuel below one item
-     * is deliberately discarded, matching Powah's historical demolition logic.
-     */
+    /** Tears down the passive shell without converting stored fuel into a different item. */
     public void demolish() {
         if (world == null || world.isRemote) {
             return;
         }
         demolishParts();
-        while (fuel >= 100.0D) {
-            InventoryHelper.spawnItemStack(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
-                    new ItemStack(ModContent.uraninite()));
-            fuel -= 100.0D;
-        }
         markDirty();
     }
 

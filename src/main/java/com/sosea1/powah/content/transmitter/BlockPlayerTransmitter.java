@@ -11,6 +11,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.stats.StatList;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -92,6 +93,28 @@ public final class BlockPlayerTransmitter extends Block {
             stack.setTagCompound(tag);
         }
         drops.add(stack);
+    }
+
+    @Override
+    public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state,
+                             TileEntity tile, ItemStack tool) {
+        if (state.getValue(TOP).booleanValue()) {
+            super.harvestBlock(world, player, pos, state, tile, tool);
+            return;
+        }
+        Item item = Item.getItemFromBlock(this);
+        if (item != null && item != Items.AIR) {
+            ItemStack drop = new ItemStack(item);
+            if (tile instanceof TilePlayerTransmitter) {
+                NBTTagCompound tag = new NBTTagCompound();
+                tag.setLong(BlockPowahMachine.NBT_PORTABLE_ENERGY,
+                        ((TilePlayerTransmitter) tile).getEnergyBuffer().energy());
+                drop.setTagCompound(tag);
+            }
+            spawnAsEntity(world, pos, drop);
+        }
+        player.addStat(StatList.getBlockStats(this));
+        player.addExhaustion(0.005F);
     }
     @Override public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player,
                                                EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {

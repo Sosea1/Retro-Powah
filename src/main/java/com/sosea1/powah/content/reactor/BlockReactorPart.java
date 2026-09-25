@@ -12,6 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import com.sosea1.powah.common.block.BlockProtection;
 import net.minecraft.world.World;
 import com.sosea1.powah.Powah;
 import com.sosea1.powah.common.tier.PowahTier;
@@ -82,7 +83,8 @@ public final class BlockReactorPart extends Block {
                 if (core != null && core.isBuilt()) {
                     // Destroying the core invokes its normal 36-block refund and
                     // removes every linked shell part without duplicate drops.
-                    return world.destroyBlock(core.getPos(), true);
+                    return BlockProtection.canBreak(player, world, core.getPos())
+                            && world.destroyBlock(core.getPos(), true);
                 }
             }
         }

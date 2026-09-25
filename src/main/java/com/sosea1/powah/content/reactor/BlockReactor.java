@@ -4,6 +4,8 @@ import java.util.Random;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.stats.StatList;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.tileentity.TileEntity;
@@ -62,6 +64,17 @@ public final class BlockReactor extends BlockPowahMachine {
         int count = raw instanceof TileReactor && ((TileReactor) raw).isAssemblyRefundable()
                 ? ItemReactorBlock.STRUCTURE_BLOCKS : 1;
         drops.add(new ItemStack(Item.getItemFromBlock(this), count));
+    }
+
+    @Override
+    public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state,
+                             TileEntity tile, ItemStack tool) {
+        int count = tile instanceof TileReactor && ((TileReactor) tile).isAssemblyRefundable()
+                ? ItemReactorBlock.STRUCTURE_BLOCKS : 1;
+        Item item = Item.getItemFromBlock(this);
+        if (item != null) spawnAsEntity(world, pos, new ItemStack(item, count));
+        player.addStat(StatList.getBlockStats(this));
+        player.addExhaustion(0.005F);
     }
 
     @Override

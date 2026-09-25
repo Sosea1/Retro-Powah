@@ -26,6 +26,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import com.sosea1.powah.common.block.BlockPowahMachine;
+import com.sosea1.powah.common.block.BlockProtection;
 import com.sosea1.powah.common.block.entity.AbstractEnergyTile;
 import com.sosea1.powah.common.energy.EnergyPortMode;
 import com.sosea1.powah.content.cable.BlockCable;
@@ -108,6 +109,7 @@ public final class ItemWrench extends Item {
 
     private EnumActionResult handleBlockUse(EntityPlayer player, World world, BlockPos pos, EnumFacing side, EnumHand hand) {
         ItemStack stack = player.getHeldItem(hand);
+        if (!BlockProtection.canEdit(player, world, pos, side, stack)) return EnumActionResult.FAIL;
         if (player.isSneaking()) {
             return removeWithWrench(player, world, pos, side, stack) ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
         }
@@ -117,7 +119,7 @@ public final class ItemWrench extends Item {
                 TileEntity tile = resolveConfigTile(world, pos);
                 return configure(player, world, tile, side) ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
             case LINK:
-                return link(player, world, pos, stack) ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
+                return link(player, world, pos, side, stack) ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
             case ROTATE:
                 return rotate(player, world, pos) ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
             default:
@@ -173,7 +175,7 @@ public final class ItemWrench extends Item {
         return tile;
     }
 
-    private boolean link(EntityPlayer player, World world, BlockPos pos, ItemStack wrench) {
+    private boolean link(EntityPlayer player, World world, BlockPos pos, EnumFacing side, ItemStack wrench) {
         TileEntity tile = world.getTileEntity(pos);
         boolean rod = tile instanceof TileEnergizingRod;
         boolean orb = tile instanceof TileEnergizingOrb;
@@ -184,14 +186,16 @@ public final class ItemWrench extends Item {
         int storedType = tag.getByte(NBT_LINK_TYPE) & 0xFF;
         if (rod && storedType == LINK_ORB) {
             BlockPos orbPos = readLinkPos(tag);
-            boolean ok = linkRodToOrb(world, pos, orbPos);
+            boolean ok = BlockProtection.canEdit(player, world, orbPos, side, wrench)
+                    && linkRodToOrb(world, pos, orbPos);
             clearLink(tag);
             sendLinkResult(player, ok);
             return true;
         }
         if (orb && storedType == LINK_ROD) {
             BlockPos rodPos = readLinkPos(tag);
-            boolean ok = linkRodToOrb(world, rodPos, pos);
+            boolean ok = BlockProtection.canEdit(player, world, rodPos, side, wrench)
+                    && linkRodToOrb(world, rodPos, pos);
             clearLink(tag);
             sendLinkResult(player, ok);
             return true;
@@ -261,8 +265,10 @@ public final class ItemWrench extends Item {
         if (target == null) return false;
         IBlockState state = world.getBlockState(target);
         if (!isRemovableBlock(state.getBlock())) return false;
-        if (!player.canPlayerEdit(target, side, wrench) || !world.isBlockModifiable(player, target)) return false;
-        if (!world.isRemote) world.destroyBlock(target, !player.capabilities.isCreativeMode);
+        if (!BlockProtection.canEdit(player, world, target, side, wrench)) return false;
+        if (!world.isRemote && BlockProtection.canBreak(player, world, target)) {
+            world.destroyBlock(target, !player.capabilities.isCreativeMode);
+        }
         return true;
     }
 
