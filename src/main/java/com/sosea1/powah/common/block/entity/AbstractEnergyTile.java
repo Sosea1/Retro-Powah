@@ -255,22 +255,22 @@ public abstract class AbstractEnergyTile extends TileEntity {
 
     /**
      * Pushes energy to directly adjacent FE receivers without loading chunks.
-     * The budget is a total budget for this call, not a per-side budget.
+     * Each output side has its own transfer limit, as in modern Powah.
      */
     protected final long pushEnergyToAdjacent(long budget) {
         if (budget <= 0L || world == null || world.isRemote || energy.isEmpty()) {
             return 0L;
         }
 
-        long remaining = Math.min(budget, Math.min(energy.energy(), energy.maxExtract()));
-        if (remaining <= 0L) {
+        long sideLimit = Math.min(budget, energy.maxExtract());
+        if (sideLimit <= 0L) {
             return 0L;
         }
 
         long transferred = 0L;
         int start = (int) (world.getTotalWorldTime() % FACINGS.length);
 
-        for (int i = 0; i < FACINGS.length && remaining > 0L; i++) {
+        for (int i = 0; i < FACINGS.length && !energy.isEmpty(); i++) {
             EnumFacing side = FACINGS[(start + i) % FACINGS.length];
             if (!isEnergyPortActive(side) || !getSideMode(side).canExtract()) {
                 continue;
@@ -291,7 +291,7 @@ public abstract class AbstractEnergyTile extends TileEntity {
                 continue;
             }
 
-            int offer = EnergyIntMath.saturatedInt(remaining);
+            int offer = EnergyIntMath.saturatedInt(Math.min(sideLimit, energy.energy()));
             if (offer <= 0) {
                 break;
             }
@@ -308,7 +308,6 @@ public abstract class AbstractEnergyTile extends TileEntity {
                 energy.generate(refund, false);
             }
             transferred += delivered;
-            remaining -= delivered;
         }
 
         if (transferred > 0L) {

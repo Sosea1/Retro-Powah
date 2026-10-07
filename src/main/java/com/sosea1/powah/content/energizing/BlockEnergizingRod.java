@@ -22,7 +22,7 @@ public final class BlockEnergizingRod extends BlockPowahMachine {
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
     public BlockEnergizingRod(PowahTier tier) {
-        super(tier, 4.0F, 10.0F);
+        super(tier, 2.0F, 20.0F);
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN));
     }
 
@@ -50,6 +50,12 @@ public final class BlockEnergizingRod extends BlockPowahMachine {
     @Override
     public boolean canSurviveAt(World world, BlockPos pos, IBlockState state) {
         return hasEnergySupport(world, pos, state.getValue(FACING));
+    }
+
+    @Override
+    public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side) {
+        return super.canPlaceBlockOnSide(world, pos, side)
+                && hasEnergySupport(world, pos, side.getOpposite());
     }
 
     @Override

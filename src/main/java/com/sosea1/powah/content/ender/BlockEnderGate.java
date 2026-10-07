@@ -60,6 +60,12 @@ public final class BlockEnderGate extends BlockEnderMachine {
         return hasEnergySupport(world, pos, state.getValue(FACING));
     }
 
+    @Override
+    public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side) {
+        return super.canPlaceBlockOnSide(world, pos, side)
+                && hasEnergySupport(world, pos, side.getOpposite());
+    }
+
     @Override public IBlockState getStateFromMeta(int meta) { return getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta)); }
     @Override public int getMetaFromState(IBlockState state) { return state.getValue(FACING).getIndex(); }
     @Override protected BlockStateContainer createBlockState() { return new BlockStateContainer(this, FACING); }

@@ -24,7 +24,7 @@ public final class BlockEnergyHopper extends BlockPowahMachine {
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
     public BlockEnergyHopper(PowahTier tier) {
-        super(tier, 4.0F, 10.0F);
+        super(tier, 2.0F, 20.0F);
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN));
     }
     @Override protected TileEntity createPowahTile(PowahTier tier) { return new TileEnergyHopper(tier); }

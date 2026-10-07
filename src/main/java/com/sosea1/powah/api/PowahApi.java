@@ -60,6 +60,14 @@ public final class PowahApi {
         return getMagmaticFluidEnergyPer100Mb(fluid) > 0L;
     }
 
+    public static boolean removeMagmaticFluid(Fluid fluid) {
+        return MAGMATIC_ENERGY_PER_100_MB.remove(fluid) != null;
+    }
+
+    public static void clearMagmaticFluids() {
+        MAGMATIC_ENERGY_PER_100_MB.clear();
+    }
+
     public static void registerCoolant(Fluid fluid, int temperature) {
         if (fluid == null) {
             throw new NullPointerException("fluid");
@@ -74,6 +82,14 @@ public final class PowahApi {
     public static int getCoolantTemperature(Fluid fluid) {
         Integer value = COOLANT_TEMPERATURE.get(fluid);
         return value == null ? Integer.MAX_VALUE : value.intValue();
+    }
+
+    public static boolean removeCoolant(Fluid fluid) {
+        return COOLANT_TEMPERATURE.remove(fluid) != null;
+    }
+
+    public static void clearCoolants() {
+        COOLANT_TEMPERATURE.clear();
     }
 
     public static void registerHeatSource(Block block, int temperature) {
@@ -91,10 +107,21 @@ public final class PowahApi {
         return value == null ? 0 : value.intValue();
     }
 
+    public static boolean removeHeatSource(Block block) {
+        return HEAT_SOURCE_TEMPERATURE.remove(block) != null;
+    }
+
+    public static void clearHeatSources() {
+        HEAT_SOURCE_TEMPERATURE.clear();
+    }
+
 
     public static void registerReactorFuel(Item item, double fuelAmount, int temperature) {
         if (item == null) {
             throw new NullPointerException("item");
+        }
+        if (Double.isInfinite(fuelAmount)) {
+            throw new IllegalArgumentException("fuelAmount must be finite");
         }
         REACTOR_FUELS.put(item, new ReactorFuelSpec(fuelAmount, temperature));
     }
@@ -103,15 +130,34 @@ public final class PowahApi {
         return item == null ? null : REACTOR_FUELS.get(item);
     }
 
+    public static boolean removeReactorFuel(Item item) {
+        return REACTOR_FUELS.remove(item) != null;
+    }
+
+    public static void clearReactorFuels() {
+        REACTOR_FUELS.clear();
+    }
+
     public static void registerSolidCoolant(Item item, double amount, int temperature) {
         if (item == null) {
             throw new NullPointerException("item");
+        }
+        if (Double.isInfinite(amount)) {
+            throw new IllegalArgumentException("amount must be finite");
         }
         SOLID_COOLANTS.put(item, new SolidCoolantSpec(amount, temperature));
     }
 
     public static SolidCoolantSpec getSolidCoolant(Item item) {
         return item == null ? null : SOLID_COOLANTS.get(item);
+    }
+
+    public static boolean removeSolidCoolant(Item item) {
+        return SOLID_COOLANTS.remove(item) != null;
+    }
+
+    public static void clearSolidCoolants() {
+        SOLID_COOLANTS.clear();
     }
 
     public static Map<Fluid, Long> getMagmaticFluids() {
@@ -145,6 +191,11 @@ public final class PowahApi {
 
     public static boolean removeEnergizingRecipe(ResourceLocation id) {
         return EnergizingRecipeManager.instance().remove(id);
+    }
+
+    /** Clears all Energizing recipes, including the built-in recipes. */
+    public static void clearEnergizingRecipes() {
+        EnergizingRecipeManager.instance().clear();
     }
 
     /** Returns an immutable snapshot of registered Energizing recipes. */

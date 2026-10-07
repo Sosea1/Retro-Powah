@@ -16,7 +16,7 @@ import com.sosea1.powah.common.tier.PowahTier;
 
 public final class BlockReactor extends BlockPowahMachine {
     public BlockReactor(PowahTier tier) {
-        super(tier, 4.0F, 20.0F);
+        super(tier, 2.0F, 20.0F);
     }
 
     @Override

@@ -31,7 +31,7 @@ public final class BlockSolarPanel extends BlockPowahMachine {
     private static final AxisAlignedBB PANEL_SHAPE = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D / 16.0D, 1.0D);
 
     public BlockSolarPanel(PowahTier tier) {
-        super(tier, 3.0F, 6.0F);
+        super(tier, 2.0F, 20.0F);
         setDefaultState(blockState.getBaseState()
                 .withProperty(NORTH, Boolean.TRUE)
                 .withProperty(EAST, Boolean.TRUE)

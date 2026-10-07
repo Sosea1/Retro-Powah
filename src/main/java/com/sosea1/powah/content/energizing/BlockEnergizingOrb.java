@@ -35,8 +35,8 @@ public final class BlockEnergizingOrb extends Block {
 
     public BlockEnergizingOrb() {
         super(Material.IRON);
-        setHardness(4.0F);
-        setResistance(10.0F);
+        setHardness(2.0F);
+        setResistance(20.0F * 5.0F / 3.0F);
         setCreativeTab(PowahCreativeTab.INSTANCE);
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN));
     }

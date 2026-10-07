@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.IItemHandler;
 
-/** Deterministic insertion-ordered registry. CraftTweaker/JEI hooks can target this layer later. */
+/** Deterministic insertion-ordered registry shared by machines, CraftTweaker, and JEI. */
 public final class EnergizingRecipeManager {
     private static final EnergizingRecipeManager INSTANCE = new EnergizingRecipeManager();
     private final Map<ResourceLocation, EnergizingRecipe> recipes = new LinkedHashMap<ResourceLocation, EnergizingRecipe>();
@@ -65,7 +65,7 @@ public final class EnergizingRecipeManager {
         return recipes.size();
     }
 
-    public synchronized void clearForTests() {
+    public synchronized void clear() {
         recipes.clear();
     }
 }

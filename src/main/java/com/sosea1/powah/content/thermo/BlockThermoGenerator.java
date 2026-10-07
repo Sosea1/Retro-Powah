@@ -12,7 +12,7 @@ import com.sosea1.powah.common.tier.PowahTier;
 
 public final class BlockThermoGenerator extends BlockPowahMachine {
     public BlockThermoGenerator(PowahTier tier) {
-        super(tier, 3.5F, 8.0F);
+        super(tier, 2.0F, 20.0F);
     }
 
     @Override public boolean isOpaqueCube(IBlockState state) { return false; }

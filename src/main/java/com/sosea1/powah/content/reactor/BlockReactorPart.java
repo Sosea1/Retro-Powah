@@ -25,8 +25,8 @@ public final class BlockReactorPart extends Block {
     public BlockReactorPart(PowahTier tier) {
         super(Material.IRON);
         this.tier = tier;
-        setHardness(4.0F);
-        setResistance(20.0F);
+        setHardness(2.0F);
+        setResistance(20.0F * 5.0F / 3.0F);
         setCreativeTab((CreativeTabs) null);
     }
 

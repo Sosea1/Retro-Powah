@@ -181,11 +181,12 @@ public abstract class AbstractEnderTile extends AbstractEnergyTile implements IT
         EnderNetworkData network = network();
         if (target == null || network == null) return;
         int offer = EnergyIntMath.saturatedInt(networkTransfer(getTier()));
-        int accepted = target.receiveEnergy(offer, true);
+        int accepted = Math.max(0, Math.min(offer, target.receiveEnergy(offer, true)));
         if (accepted <= 0) return;
         long extracted = network.extract(owner, channel, accepted, networkTransfer(getTier()), false);
         if (extracted <= 0L) return;
-        int actual = target.receiveEnergy(EnergyIntMath.saturatedInt(extracted), false);
+        int withdrawn = EnergyIntMath.saturatedInt(extracted);
+        int actual = Math.max(0, Math.min(withdrawn, target.receiveEnergy(withdrawn, false)));
         if (actual > 0) {
             markDirty();
         }
@@ -197,10 +198,10 @@ public abstract class AbstractEnderTile extends AbstractEnergyTile implements IT
     private void pushNetworkEnergy() {
         EnderNetworkData network = network();
         if (network == null) return;
-        long remaining = Math.min(networkTransfer(getTier()), network.channel(owner, channel).energy());
-        if (remaining <= 0L) return;
+        long sideLimit = networkTransfer(getTier());
+        if (sideLimit <= 0L) return;
         int start = (int) (world.getTotalWorldTime() % FACINGS.length);
-        for (int i = 0; i < FACINGS.length && remaining > 0L; i++) {
+        for (int i = 0; i < FACINGS.length && network.channel(owner, channel).energy() > 0L; i++) {
             EnumFacing side = FACINGS[(start + i) % FACINGS.length];
             if (!isEnergySide(side)) continue;
             BlockPos targetPos = pos.offset(side);
@@ -214,12 +215,14 @@ public abstract class AbstractEnderTile extends AbstractEnergyTile implements IT
             if (!targetTile.hasCapability(CapabilityEnergy.ENERGY, side.getOpposite())) continue;
             IEnergyStorage target = targetTile.getCapability(CapabilityEnergy.ENERGY, side.getOpposite());
             if (target == null || !target.canReceive()) continue;
-            int accepted = target.receiveEnergy(EnergyIntMath.saturatedInt(remaining), true);
+            int offer = EnergyIntMath.saturatedInt(Math.min(sideLimit, network.channel(owner, channel).energy()));
+            int accepted = Math.max(0, Math.min(offer, target.receiveEnergy(offer, true)));
             if (accepted <= 0) continue;
-            long extracted = network.extract(owner, channel, accepted, remaining, false);
-            int actual = target.receiveEnergy(EnergyIntMath.saturatedInt(extracted), false);
-            if (actual < extracted) network.receive(owner, channel, extracted - Math.max(0, actual), Long.MAX_VALUE, false);
-            remaining -= Math.max(0, actual);
+            long extracted = network.extract(owner, channel, accepted, sideLimit, false);
+            if (extracted <= 0L) continue;
+            int withdrawn = EnergyIntMath.saturatedInt(extracted);
+            int actual = Math.max(0, Math.min(withdrawn, target.receiveEnergy(withdrawn, false)));
+            if (actual < extracted) network.receive(owner, channel, extracted - actual, Long.MAX_VALUE, false);
         }
     }
 
@@ -312,23 +315,40 @@ public abstract class AbstractEnderTile extends AbstractEnergyTile implements IT
 
     @Override
     protected void writePowahData(NBTTagCompound compound) {
-        if (owner != null) compound.setString(NBT_OWNER, owner.toString());
-        compound.setString(NBT_OWNER_NAME, ownerName);
-        compound.setInteger(NBT_CHANNEL, channel);
+        writePortableData(compound);
         compound.setTag(NBT_INVENTORY, inventory.serializeNBT());
         writeEnderData(compound);
     }
 
     @Override
     protected void readPowahData(NBTTagCompound compound) {
+        readNetworkIdentity(compound);
+        if (compound.hasKey(NBT_INVENTORY)) inventory.deserializeNBT(compound.getCompoundTag(NBT_INVENTORY));
+        readEnderData(compound);
+    }
+
+    /** Portable identity only: the network and separately dropped inventory stay authoritative. */
+    final void writePortableData(NBTTagCompound compound) {
+        if (owner == null) compound.removeTag(NBT_OWNER);
+        else compound.setString(NBT_OWNER, owner.toString());
+        compound.setString(NBT_OWNER_NAME, ownerName);
+        compound.setInteger(NBT_CHANNEL, channel);
+    }
+
+    final void readPortableData(NBTTagCompound compound) {
+        readNetworkIdentity(compound);
+        markDirty();
+        syncMirror();
+    }
+
+    private void readNetworkIdentity(NBTTagCompound compound) {
+        owner = null;
         String id = compound.getString(NBT_OWNER);
         if (id != null && !id.isEmpty()) {
             try { owner = UUID.fromString(id); } catch (IllegalArgumentException ignored) { owner = null; }
         }
         ownerName = compound.getString(NBT_OWNER_NAME);
         channel = Math.max(0, Math.min(getMaxChannels() - 1, compound.getInteger(NBT_CHANNEL)));
-        if (compound.hasKey(NBT_INVENTORY)) inventory.deserializeNBT(compound.getCompoundTag(NBT_INVENTORY));
-        readEnderData(compound);
     }
 
     protected void writeEnderData(NBTTagCompound compound) { }

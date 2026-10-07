@@ -15,6 +15,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import java.util.List;
@@ -37,14 +39,24 @@ public final class BlockCable extends Block {
 
     private static final double CORE_MIN = 6.25D / 16.0D;
     private static final double CORE_MAX = 9.75D / 16.0D;
+    private static final AxisAlignedBB CORE = new AxisAlignedBB(CORE_MIN, CORE_MIN, CORE_MIN, CORE_MAX, CORE_MAX, CORE_MAX);
+    private static final PropertyBool[] CONNECTIONS = {DOWN, UP, NORTH, SOUTH, WEST, EAST};
+    private static final AxisAlignedBB[] ARMS = {
+            new AxisAlignedBB(CORE_MIN, 0, CORE_MIN, CORE_MAX, CORE_MIN, CORE_MAX),
+            new AxisAlignedBB(CORE_MIN, CORE_MAX, CORE_MIN, CORE_MAX, 1, CORE_MAX),
+            new AxisAlignedBB(CORE_MIN, CORE_MIN, 0, CORE_MAX, CORE_MAX, CORE_MIN),
+            new AxisAlignedBB(CORE_MIN, CORE_MIN, CORE_MAX, CORE_MAX, CORE_MAX, 1),
+            new AxisAlignedBB(0, CORE_MIN, CORE_MIN, CORE_MIN, CORE_MAX, CORE_MAX),
+            new AxisAlignedBB(CORE_MAX, CORE_MIN, CORE_MIN, 1, CORE_MAX, CORE_MAX)
+    };
 
     private final PowahTier tier;
 
     public BlockCable(PowahTier tier) {
         super(Material.IRON);
         this.tier = tier;
-        setHardness(1.0F);
-        setResistance(3.0F);
+        setHardness(2.0F);
+        setResistance(20.0F * 5.0F / 3.0F);
         setCreativeTab(PowahCreativeTab.INSTANCE);
         setDefaultState(blockState.getBaseState()
                 .withProperty(NORTH, Boolean.FALSE)
@@ -108,6 +120,7 @@ public final class BlockCable extends Block {
 
     private boolean canAttach(IBlockAccess world, BlockPos pos, EnumFacing direction) {
         BlockPos targetPos = pos.offset(direction);
+        if (world instanceof World && !((World) world).isBlockLoaded(targetPos)) return false;
         IBlockState targetState = world.getBlockState(targetPos);
         if (targetState.getBlock() == this) {
             return true;
@@ -135,6 +148,22 @@ public final class BlockCable extends Block {
         double minZ = actual.getValue(NORTH).booleanValue() ? 0.0D : CORE_MIN;
         double maxZ = actual.getValue(SOUTH).booleanValue() ? 1.0D : CORE_MAX;
         return new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
+    }
+
+    @Nullable
+    @Override
+    public RayTraceResult collisionRayTrace(IBlockState state, World world, BlockPos pos, Vec3d start, Vec3d end) {
+        IBlockState actual = getActualState(state, world, pos);
+        RayTraceResult closest = rayTrace(pos, start, end, CORE);
+        for (int i = 0; i < ARMS.length; i++) {
+            if (!actual.getValue(CONNECTIONS[i])) continue;
+            RayTraceResult hit = rayTrace(pos, start, end, ARMS[i]);
+            if (hit != null && (closest == null
+                    || start.squareDistanceTo(hit.hitVec) < start.squareDistanceTo(closest.hitVec))) {
+                closest = hit;
+            }
+        }
+        return closest;
     }
 
     @Nullable

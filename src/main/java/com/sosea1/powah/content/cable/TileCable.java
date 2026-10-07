@@ -220,10 +220,7 @@ public final class TileCable extends TileEntity {
             return 0;
         }
 
-        int budget = EnergyIntMath.saturatedInt(Math.min((long) maxReceive, transferRate()));
-        if (budget <= 0) {
-            return 0;
-        }
+        int budget = maxReceive;
 
         BlockPos sourcePos = ingressSide == null ? null : pos.offset(ingressSide);
         int received = 0;
@@ -257,7 +254,12 @@ public final class TileCable extends TileEntity {
                 if (target == null || !target.canReceive()) {
                     continue;
                 }
-                int accepted = target.receiveEnergy(budget - received, simulate);
+                int offer = EnergyIntMath.saturatedInt(Math.min((long) budget - received,
+                        ((TileCable) sourceCableTile).transferRate()));
+                if (offer <= 0) {
+                    continue;
+                }
+                int accepted = Math.max(0, Math.min(offer, target.receiveEnergy(offer, simulate)));
                 if (accepted > 0) {
                     received += accepted;
                 }
@@ -324,7 +326,8 @@ public final class TileCable extends TileEntity {
                 if (source == null || !source.canExtract()) {
                     continue;
                 }
-                int supplied = source.extractEnergy(budget - extracted, simulate);
+                int offer = budget - extracted;
+                int supplied = Math.max(0, Math.min(offer, source.extractEnergy(offer, simulate)));
                 if (supplied > 0) {
                     extracted += supplied;
                 }

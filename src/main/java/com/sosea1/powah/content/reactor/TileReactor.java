@@ -249,10 +249,10 @@ public final class TileReactor extends AbstractEnergyTile implements ITickable {
         if (budget <= 0L || world == null || world.isRemote || getEnergyBuffer().isEmpty()) {
             return 0L;
         }
-        long remaining = Math.min(budget, Math.min(getEnergyBuffer().energy(), getEnergyBuffer().maxExtract()));
+        long sideLimit = Math.min(budget, getEnergyBuffer().maxExtract());
         long transferred = 0L;
         int start = (int) (world.getTotalWorldTime() % FACINGS.length);
-        for (int i = 0; i < FACINGS.length && remaining > 0L; i++) {
+        for (int i = 0; i < FACINGS.length && !getEnergyBuffer().isEmpty(); i++) {
             EnumFacing side = FACINGS[(start + i) % FACINGS.length];
             if (!getSideMode(side).canExtract()) {
                 continue;
@@ -270,7 +270,7 @@ public final class TileReactor extends AbstractEnergyTile implements ITickable {
             if (storage == null || !storage.canReceive()) {
                 continue;
             }
-            int offer = EnergyIntMath.saturatedInt(remaining);
+            int offer = EnergyIntMath.saturatedInt(Math.min(sideLimit, getEnergyBuffer().energy()));
             long extracted = getEnergyBuffer().consume(offer, false);
             if (extracted <= 0L) {
                 continue;
@@ -282,7 +282,6 @@ public final class TileReactor extends AbstractEnergyTile implements ITickable {
                 getEnergyBuffer().generate(extracted - delivered, false);
             }
             transferred += delivered;
-            remaining -= delivered;
         }
         if (transferred > 0L) {
             onEnergyChanged();

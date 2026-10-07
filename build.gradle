@@ -227,6 +227,9 @@ processResources {
 }
 
 jar {
+    from(['LICENSE', 'COPYING', 'README.md']) {
+        into 'META-INF/powah'
+    }
     manifest {
         def attribute_map = [:]
         if (propertyBool('is_coremod')) {
@@ -253,6 +256,12 @@ jar {
             }
         }
         attributes(attribute_map)
+    }
+}
+
+tasks.matching { it.name in ['sourcesJar', 'javadocJar', 'shadowJar'] }.configureEach {
+    from(['LICENSE', 'COPYING', 'README.md']) {
+        into 'META-INF/powah'
     }
 }
 

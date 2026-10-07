@@ -13,7 +13,7 @@ public final class BlockMagmator extends BlockHorizontalPowahMachine {
     public static final PropertyBool LIT = PropertyBool.create("lit");
 
     public BlockMagmator(PowahTier tier) {
-        super(tier, 3.5F, 8.0F);
+        super(tier, 2.0F, 20.0F);
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(LIT, Boolean.FALSE));
     }
 

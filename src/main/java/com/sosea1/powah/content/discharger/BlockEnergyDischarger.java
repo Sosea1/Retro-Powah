@@ -7,7 +7,7 @@ import com.sosea1.powah.common.tier.PowahTier;
 /** Tiered FE item discharger: extracts item energy into a machine buffer and exposes it outward. */
 public final class BlockEnergyDischarger extends BlockHorizontalPowahMachine {
     public BlockEnergyDischarger(PowahTier tier) {
-        super(tier, 4.0F, 10.0F);
+        super(tier, 2.0F, 20.0F);
     }
 
     @Override

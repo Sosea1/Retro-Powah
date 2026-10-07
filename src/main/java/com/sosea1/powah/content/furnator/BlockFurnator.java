@@ -14,7 +14,7 @@ import com.sosea1.powah.common.tier.PowahTier;
 
 public final class BlockFurnator extends BlockHorizontalPowahMachine {
     public BlockFurnator(PowahTier tier) {
-        super(tier, 3.5F, 8.0F);
+        super(tier, 2.0F, 20.0F);
     }
 
     @Override

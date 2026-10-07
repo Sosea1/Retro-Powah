@@ -16,7 +16,7 @@ import com.sosea1.powah.common.block.BlockPowahMachine;
 import com.sosea1.powah.common.tier.PowahTier;
 
 public final class BlockEnergyCell extends BlockPowahMachine {
-    public BlockEnergyCell(PowahTier tier) { super(tier, 4.0F, 10.0F); }
+    public BlockEnergyCell(PowahTier tier) { super(tier, 2.0F, 20.0F); }
     @Override protected TileEntity createPowahTile(PowahTier tier) { return new TileEnergyCell(tier); }
 
     @Override

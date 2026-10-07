@@ -50,7 +50,8 @@ public abstract class BlockPowahMachine extends Block {
         }
         this.tier = tier;
         setHardness(hardness);
-        setResistance(resistance);
+        // 1.12 stores 3x the setter value and reports stored / 5 as explosion resistance.
+        setResistance(resistance * 5.0F / 3.0F);
         setCreativeTab(PowahCreativeTab.INSTANCE);
     }
 
@@ -91,7 +92,6 @@ public abstract class BlockPowahMachine extends Block {
         // been loaded yet. A later neighbor update re-validates it once available.
         if (!world.isBlockLoaded(supportPos)) return true;
         IBlockState supportState = world.getBlockState(supportPos);
-        if (supportState.getBlock().isSideSolid(supportState, world, supportPos, side.getOpposite())) return true;
         if (supportState.getBlock() instanceof BlockCable) return true;
         TileEntity support = world.getTileEntity(supportPos);
         EnumFacing touchingSide = side.getOpposite();
@@ -122,6 +122,11 @@ public abstract class BlockPowahMachine extends Block {
         return false;
     }
 
+    /** Some network endpoints retain their identity without carrying a local FE buffer. */
+    protected boolean keepsPortableStateOnBreak() {
+        return keepsEnergyOnBreak();
+    }
+
     /** Hook for portable state beyond FE (for example Magmator/Thermo coolant). */
     protected void writePortableState(ItemStack stack, TileEntity tile) {
         if (keepsEnergyOnBreak() && tile instanceof AbstractEnergyTile) {
@@ -145,7 +150,7 @@ public abstract class BlockPowahMachine extends Block {
                              TileEntity tile, ItemStack tool) {
         // In 1.12 removedByPlayer may already have replaced the block with air by
         // harvestBlock, so getDrops(pos) can no longer see the tile's portable data.
-        if (!keepsEnergyOnBreak() || tile == null) {
+        if (!keepsPortableStateOnBreak() || tile == null) {
             super.harvestBlock(world, player, pos, state, tile, tool);
             return;
         }
@@ -198,7 +203,7 @@ public abstract class BlockPowahMachine extends Block {
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         int firstNewDrop = drops.size();
         super.getDrops(drops, world, pos, state, fortune);
-        if (!keepsEnergyOnBreak()) return;
+        if (!keepsPortableStateOnBreak()) return;
 
         TileEntity tile = world.getTileEntity(pos);
         if (tile == null) return;
@@ -217,7 +222,7 @@ public abstract class BlockPowahMachine extends Block {
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         super.onBlockPlacedBy(world, pos, state, placer, stack);
-        if (!keepsEnergyOnBreak()) return;
+        if (!keepsPortableStateOnBreak()) return;
         TileEntity tile = world.getTileEntity(pos);
         if (tile != null) readPortableState(stack, tile);
     }

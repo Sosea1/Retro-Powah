@@ -6,7 +6,6 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
 /** Stone-replacing Uraninite ore variant with the classic poor/normal/dense yield split. */
@@ -20,8 +19,10 @@ public final class BlockUraniniteOre extends Block {
         if (baseDropCount <= 0) throw new IllegalArgumentException("baseDropCount");
         this.drop = drop;
         this.baseDropCount = baseDropCount;
-        setHardness(3.0F);
-        setResistance(5.0F);
+        // These yields identify the existing poor, normal and dense ore variants.
+        setHardness(baseDropCount == 4 ? 4.0F : baseDropCount == 2 ? 3.2F : 3.0F);
+        // 1.12 stores 3x the setter value, then divides by 5 during explosions.
+        setResistance(8.0F * 5.0F / 3.0F);
         setHarvestLevel("pickaxe", 2);
         setCreativeTab(PowahCreativeTab.INSTANCE);
     }
@@ -47,6 +48,6 @@ public final class BlockUraniniteOre extends Block {
     @Override
     public int getExpDrop(IBlockState state, net.minecraft.world.IBlockAccess world,
                           net.minecraft.util.math.BlockPos pos, int fortune) {
-        return RANDOM.nextInt(3) + 2;
+        return 0;
     }
 }

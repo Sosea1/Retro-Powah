@@ -42,11 +42,11 @@ public final class ReactorMath {
     public static double targetTemperature(int base, int carbon, int redstone,
                                            boolean hasLiquidCoolant, int liquidTemperature,
                                            boolean hasSolidCoolant, int solidTemperature) {
-        double target = Math.min(MAX_TEMPERATURE, Math.max(0, base + carbon + redstone));
+        double target = Math.min(MAX_TEMPERATURE, Math.max(0L, (long) base + carbon + redstone));
         if (hasLiquidCoolant) {
             int combinedSolid = hasSolidCoolant ? solidTemperature : 0;
-            int divisor = Math.abs((-liquidTemperature) + combinedSolid) + 1;
-            target /= Math.max(1, divisor);
+            long divisor = Math.abs((long) liquidTemperature + combinedSolid) + 1L;
+            target /= divisor;
         }
         return target;
     }
